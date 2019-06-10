@@ -42,6 +42,7 @@ class ThemeViewController: TableViewController {
                 cell.bind(to: viewModel)
             }.disposed(by: rx.disposeBag)
 
+        //点击返回
         output.selected.drive(onNext: { [weak self] (cellViewModel) in
             self?.navigator.dismiss(sender: self)
         }).disposed(by: rx.disposeBag)

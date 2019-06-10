@@ -12,6 +12,7 @@ import RxCocoa
 
 class ThemeCellViewModel {
 
+    //颜色
     let title: Driver<String>
     let imageColor: Driver<UIColor>
 

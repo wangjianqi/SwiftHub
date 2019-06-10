@@ -28,6 +28,7 @@ class ContactsViewController: TableViewController {
         navigationTitle = R.string.localizable.contactsNavigationTitle.key.localized()
         emptyDataSetTitle = R.string.localizable.contactsPermissionDeniedTitle.key.localized()
         emptyDataSetDescription = R.string.localizable.contactsPermissionDeniedDescription.key.localized()
+        //stackView
         stackView.insertArrangedSubview(searchBar, at: 0)
 
         tableView.register(R.nib.contactCell)

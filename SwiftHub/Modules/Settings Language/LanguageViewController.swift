@@ -15,6 +15,7 @@ private let reuseIdentifier = R.reuseIdentifier.languageCell.identifier
 
 class LanguageViewController: TableViewController {
 
+    //保存
     lazy var saveButtonItem: BarButtonItem = {
         let view = BarButtonItem(title: "",
                                  style: .plain, target: self, action: nil)
@@ -23,7 +24,7 @@ class LanguageViewController: TableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //切换语言页面
         // Do any additional setup after loading the view.
     }
 

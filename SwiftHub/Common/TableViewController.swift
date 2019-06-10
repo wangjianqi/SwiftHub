@@ -85,6 +85,7 @@ class TableViewController: ViewController, UIScrollViewDelegate {
 
 extension TableViewController {
 
+    //取消选择
     func deselectSelectedRow() {
         if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
             selectedIndexPaths.forEach({ (indexPath) in

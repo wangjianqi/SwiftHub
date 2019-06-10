@@ -20,6 +20,7 @@ protocol ViewModelType {
 
 class ViewModel: NSObject {
 
+    //协议
     let provider: SwiftHubAPI
 
     var page = 1
@@ -29,8 +30,10 @@ class ViewModel: NSObject {
     let footerLoading = ActivityIndicator()
 
     let error = ErrorTracker()
+    //解析错误
     let parsedError = PublishSubject<ApiError>()
 
+    //构造方法
     init(provider: SwiftHubAPI) {
         self.provider = provider
         super.init()
@@ -49,6 +52,7 @@ class ViewModel: NSObject {
         }.filterNil().bind(to: parsedError).disposed(by: rx.disposeBag)
 
         error.asDriver().drive(onNext: { (error) in
+            //输出错误
             logError("\(error)")
         }).disposed(by: rx.disposeBag)
     }

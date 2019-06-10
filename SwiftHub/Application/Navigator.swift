@@ -91,8 +91,10 @@ class Navigator {
         case .notifications(let viewModel): return NotificationsViewController(viewModel: viewModel, navigator: self)
         case .issues(let viewModel): return IssuesViewController(viewModel: viewModel, navigator: self)
         case .issueDetails(let viewModel): return IssueViewController(viewModel: viewModel, navigator: self)
+            //颜色主题
         case .theme(let viewModel): return ThemeViewController(viewModel: viewModel, navigator: self)
         case .language(let viewModel): return LanguageViewController(viewModel: viewModel, navigator: self)
+            //致谢（自动生成的）
         case .acknowledgements: return AcknowListViewController()
         case .contacts(let viewModel): return ContactsViewController(viewModel: viewModel, navigator: self)
 
@@ -126,12 +128,15 @@ class Navigator {
         }
     }
 
+    //返回上个页面
     func dismiss(sender: UIViewController?) {
         sender?.navigationController?.dismiss(animated: true, completion: nil)
     }
 
     // MARK: - invoke a single segue
+    //调用
     func show(segue: Scene, sender: UIViewController?, transition: Transition = .navigation(type: .cover(direction: .left))) {
+        //获取控制器
         if let target = get(segue: segue) {
             show(target: target, sender: sender, transition: transition)
         }
@@ -174,6 +179,7 @@ class Navigator {
             }
         case .modal:
             // present modally
+            //模态
             DispatchQueue.main.async {
                 let nav = NavigationController(rootViewController: target)
                 sender.present(nav, animated: true, completion: nil)
@@ -181,6 +187,7 @@ class Navigator {
         case .detail:
             DispatchQueue.main.async {
                 let nav = NavigationController(rootViewController: target)
+                ///跳转详情
                 sender.showDetailViewController(nav, sender: nil)
             }
         case .alert:

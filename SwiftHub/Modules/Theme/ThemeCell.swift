@@ -14,6 +14,7 @@ class ThemeCell: DefaultTableViewCell {
         super.makeUI()
         rightImageView.isHidden = true
         leftImageView.cornerRadius = 20
+        //重新设置约束
         leftImageView.snp.remakeConstraints { (make) in
             make.size.equalTo(40)
         }

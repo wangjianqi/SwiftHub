@@ -19,6 +19,7 @@ class LanguageCell: DefaultTableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        //选中cell
         rightImageView.image = selected ? R.image.icon_cell_check()?.template : nil
     }
 

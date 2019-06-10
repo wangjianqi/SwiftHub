@@ -55,6 +55,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
 
     let motionShakeEvent = PublishSubject<Void>()
 
+    //搜索
     lazy var searchBar: SearchBar = {
         let view = SearchBar()
         return view

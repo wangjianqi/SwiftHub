@@ -15,6 +15,7 @@ private let reuseIdentifier = R.reuseIdentifier.repoLanguageCell
 
 class LanguagesViewController: TableViewController {
 
+    //保存按钮
     lazy var saveButtonItem: BarButtonItem = {
         let view = BarButtonItem(title: "",
                                  style: .plain, target: self, action: nil)
@@ -37,6 +38,7 @@ class LanguagesViewController: TableViewController {
 
         languageChanged.subscribe(onNext: { [weak self] () in
             self?.navigationTitle = R.string.localizable.languagesNavigationTitle.key.localized()
+            //标题
             self?.saveButtonItem.title = R.string.localizable.commonSave.key.localized()
             self?.allButton.titleForNormal = R.string.localizable.languagesAllButtonTitle.key.localized()
         }).disposed(by: rx.disposeBag)

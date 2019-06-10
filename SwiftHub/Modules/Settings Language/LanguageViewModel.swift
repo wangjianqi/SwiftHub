@@ -14,8 +14,11 @@ import Localize_Swift
 class LanguageViewModel: ViewModel, ViewModelType {
 
     struct Input {
+        //触发
         let trigger: Observable<Void>
+        //保存
         let saveTrigger: Driver<Void>
+        //选项
         let selection: Driver<LanguageCellViewModel>
     }
 
@@ -24,6 +27,7 @@ class LanguageViewModel: ViewModel, ViewModelType {
         let saved: Driver<Void>
     }
 
+    //行为转播
     private var currentLanguage: BehaviorRelay<String>
 
     override init(provider: SwiftHubAPI) {
@@ -31,6 +35,7 @@ class LanguageViewModel: ViewModel, ViewModelType {
         super.init(provider: provider)
     }
 
+    //实现ViewModelType协议方法
     func transform(input: Input) -> Output {
         let elements = BehaviorRelay<[LanguageCellViewModel]>(value: [])
 
@@ -44,6 +49,7 @@ class LanguageViewModel: ViewModel, ViewModelType {
 
         let saved = input.saveTrigger.map { () -> Void in
             let language = self.currentLanguage.value
+            //设置当前语言
             Localize.setCurrentLanguage(language)
             analytics.log(.appLanguage(language: language))
         }

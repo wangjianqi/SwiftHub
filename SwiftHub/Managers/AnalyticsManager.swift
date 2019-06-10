@@ -11,6 +11,7 @@ import Umbrella
 import Mixpanel
 import FirebaseAnalytics
 
+//分析
 let analytics = Umbrella.Analytics<SwifthubEvent>()
 
 enum SwifthubEvent {

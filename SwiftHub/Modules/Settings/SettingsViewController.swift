@@ -95,25 +95,32 @@ class SettingsViewController: TableViewController {
                 self?.logoutAction()
             case .bannerItem,
                  .nightModeItem:
+                //广告和夜间模式
                 self?.deselectSelectedRow()
             case .themeItem:
+                //颜色主题
                 if let viewModel = viewModel.viewModel(for: item) as? ThemeViewModel {
                     self?.navigator.show(segue: .theme(viewModel: viewModel), sender: self, transition: .detail)
                 }
             case .languageItem:
+                //语言
                 if let viewModel = viewModel.viewModel(for: item) as? LanguageViewModel {
                     self?.navigator.show(segue: .language(viewModel: viewModel), sender: self, transition: .detail)
                 }
             case .contactsItem:
+                //邀请
                 if let viewModel = viewModel.viewModel(for: item) as? ContactsViewModel {
                     self?.navigator.show(segue: .contacts(viewModel: viewModel), sender: self, transition: .detail)
                 }
             case .removeCacheItem:
+                //清理缓存
                 self?.deselectSelectedRow()
             case .acknowledgementsItem:
+                //致谢
                 self?.navigator.show(segue: .acknowledgements, sender: self, transition: .detail)
                 analytics.log(.acknowledgements)
             case .whatsNewItem:
+                //新特性
                 self?.navigator.show(segue: .whatsNew(block: viewModel.whatsNewBlock()), sender: self, transition: .modal)
                 analytics.log(.whatsNew)
             }
