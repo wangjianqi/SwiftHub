@@ -65,6 +65,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
         return view
     }()
 
+    ///返回键
     lazy var closeBarButton: BarButtonItem = {
         let view = BarButtonItem(image: R.image.icon_navigation_close(),
                                  style: .plain,
@@ -235,7 +236,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
     }
 
     // MARK: Adjusting Navigation Item
-
+    ///调整返回按钮
     func adjustLeftBarButtonItem() {
         if self.navigationController?.viewControllers.count ?? 0 > 1 { // Pushed
             self.navigationItem.leftBarButtonItem = nil
@@ -255,6 +256,7 @@ extension ViewController {
         return Configs.BaseDimensions.inset
     }
 
+    ///配置空白页
     func emptyView(withHeight height: CGFloat) -> View {
         let view = View()
         view.snp.makeConstraints { (make) in
@@ -263,6 +265,7 @@ extension ViewController {
         return view
     }
 
+    ///显示flex
     @objc func handleTwoFingerSwipe(swipeRecognizer: UISwipeGestureRecognizer) {
         if swipeRecognizer.state == .recognized, canOpenFlex {
             LibsManager.shared.showFlex()

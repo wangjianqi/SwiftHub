@@ -10,6 +10,7 @@ import Foundation
 import CocoaLumberjack
 import RxSwift
 
+//配置打印
 public func logDebug(_ message: @autoclosure () -> String) {
     DDLogDebug(message)
 }

@@ -45,10 +45,12 @@ class LibsManager: NSObject {
     override init() {
         super.init()
 
+        //
         if UserDefaults.standard.object(forKey: Configs.UserDefaultsKeys.bannersEnabled) == nil {
             bannersEnabled.accept(true)
         }
 
+        //订阅
         bannersEnabled.subscribe(onNext: { (enabled) in
             UserDefaults.standard.set(enabled, forKey: Configs.UserDefaultsKeys.bannersEnabled)
             analytics.updateUser(ads: enabled)
@@ -95,6 +97,7 @@ class LibsManager: NSObject {
         ToastManager.shared.style = style
     }
 
+    //设置刷新
     func setupKafkaRefresh() {
         if let defaults = KafkaRefreshDefaults.standard() {
             defaults.headDefaultStyle = .replicatorAllen
@@ -125,6 +128,7 @@ class LibsManager: NSObject {
         ImageDownloader.default.downloadTimeout = 15.0 // 15 sec
     }
 
+    //设置日志打印
     func setupCocoaLumberjack() {
         DDLog.add(DDTTYLogger.sharedInstance) // TTY = Xcode console
 //        DDLog.add(DDASLLogger.sharedInstance) // ASL = Apple System Logs
@@ -135,6 +139,8 @@ class LibsManager: NSObject {
         DDLog.add(fileLogger)
     }
 
+    
+    //设置flex
     func setupFLEX() {
         FLEXManager.shared().isNetworkDebuggingEnabled = true
     }

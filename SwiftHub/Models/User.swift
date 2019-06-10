@@ -13,6 +13,7 @@ import KeychainAccess
 import MessageKit
 
 private let userKey = "CurrentUserKey"
+///钥匙串
 private let keychain = Keychain(service: Configs.App.bundleIdentifier)
 
 enum UserType: String {
@@ -187,6 +188,7 @@ extension User {
     }
 
     static func removeCurrentUser() {
+        //删除钥匙串内容
         keychain[userKey] = nil
     }
 }
