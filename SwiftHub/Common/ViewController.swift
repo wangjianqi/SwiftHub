@@ -36,6 +36,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
     var automaticallyAdjustsLeftBarButtonItem = true
     var canOpenFlex = true
 
+    //标题
     var navigationTitle = "" {
         didSet {
             navigationItem.title = navigationTitle

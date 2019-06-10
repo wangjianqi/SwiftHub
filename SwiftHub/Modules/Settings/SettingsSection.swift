@@ -32,6 +32,7 @@ enum SettingsSectionItem {
 }
 
 extension SettingsSection: SectionModelType {
+    //指定类型
     typealias Item = SettingsSectionItem
 
     var title: String {
@@ -40,12 +41,14 @@ extension SettingsSection: SectionModelType {
         }
     }
 
+    //实现items
     var items: [SettingsSectionItem] {
         switch  self {
         case .setting(_, let items): return items.map {$0}
         }
     }
 
+    //实现init方法
     init(original: SettingsSection, items: [Item]) {
         switch original {
         case .setting(let title, let items): self = .setting(title: title, items: items)

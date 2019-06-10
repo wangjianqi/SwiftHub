@@ -44,6 +44,7 @@ class DetailedTableViewCell: DefaultTableViewCell {
         stackView.snp.remakeConstraints({ (make) in
             let inset = self.inset
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: inset/2, left: inset, bottom: inset/2, right: inset))
+            //大于约束
             make.height.greaterThanOrEqualTo(Configs.BaseDimensions.tableRowHeight)
         })
     }

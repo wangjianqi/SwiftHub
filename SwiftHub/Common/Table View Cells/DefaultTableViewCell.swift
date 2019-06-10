@@ -10,6 +10,7 @@ import UIKit
 
 class DefaultTableViewCell: TableViewCell {
 
+    //头像
     lazy var leftImageView: ImageView = {
         let view = ImageView(frame: CGRect())
         view.contentMode = .scaleAspectFit
@@ -19,6 +20,7 @@ class DefaultTableViewCell: TableViewCell {
         return view
     }()
 
+    //badge
     lazy var badgeImageView: ImageView = {
         let view = ImageView(frame: CGRect())
         view.backgroundColor = .white
@@ -33,12 +35,14 @@ class DefaultTableViewCell: TableViewCell {
         return view
     }()
 
+    //nickName
     lazy var titleLabel: Label = {
         let view = Label()
         view.font = view.font.withSize(14)
         return view
     }()
 
+    //arrow
     lazy var rightImageView: ImageView = {
         let view = ImageView(frame: CGRect())
         view.image = R.image.icon_cell_disclosure()?.template

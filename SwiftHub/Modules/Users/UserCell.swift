@@ -33,6 +33,7 @@ class UserCell: DetailedTableViewCell {
         viewModel.detail.drive(detailLabel.rx.text).disposed(by: rx.disposeBag)
         viewModel.secondDetail.drive(secondDetailLabel.rx.attributedText).disposed(by: rx.disposeBag)
         viewModel.imageUrl.drive(leftImageView.rx.imageURL).disposed(by: rx.disposeBag)
+        //头像点击
         viewModel.imageUrl.drive(onNext: { [weak self] (url) in
             if let url = url {
                 self?.leftImageView.hero.id = url.absoluteString

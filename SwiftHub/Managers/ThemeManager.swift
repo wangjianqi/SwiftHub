@@ -12,7 +12,7 @@ import RxCocoa
 import RxTheme
 import RAMAnimatedTabBarController
 import KafkaRefresh
-
+//状态栏
 let globalStatusBarStyle = BehaviorRelay<UIStatusBarStyle>(value: .default)
 
 let themeService = ThemeType.service(initial: ThemeType.currentTheme())

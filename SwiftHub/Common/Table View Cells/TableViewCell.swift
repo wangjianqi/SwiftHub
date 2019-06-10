@@ -15,18 +15,21 @@ class TableViewCell: UITableViewCell {
     var cellDisposeBag = DisposeBag()
 
     var isSelection = false
+    //选中颜色
     var selectionColor: UIColor? {
         didSet {
             setSelected(isSelected, animated: true)
         }
     }
 
+    //底部container
     lazy var containerView: View = {
         let view = View()
         view.backgroundColor = .clear
         view.cornerRadius = Configs.BaseDimensions.cornerRadius
         self.addSubview(view)
         view.snp.makeConstraints({ (make) in
+            //inset
             make.edges.equalToSuperview().inset(UIEdgeInsets(horizontal: self.inset*2, vertical: self.inset))
         })
         return view
@@ -35,6 +38,7 @@ class TableViewCell: UITableViewCell {
     lazy var stackView: StackView = {
         let subviews: [UIView] = []
         let view = StackView(arrangedSubviews: subviews)
+        //水平的
         view.axis = .horizontal
         view.alignment = .center
         self.containerView.addSubview(view)

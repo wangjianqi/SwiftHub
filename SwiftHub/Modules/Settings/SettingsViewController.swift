@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+//cellId
 private let switchReuseIdentifier = R.reuseIdentifier.settingSwitchCell.identifier
 private let reuseIdentifier = R.reuseIdentifier.settingCell.identifier
 private let profileReuseIdentifier = R.reuseIdentifier.userCell.identifier
@@ -30,9 +31,11 @@ class SettingsViewController: TableViewController {
             self?.navigationTitle = R.string.localizable.settingsNavigationTitle.key.localized()
         }).disposed(by: rx.disposeBag)
 
+        //注册cell
         tableView.register(R.nib.settingCell)
         tableView.register(R.nib.settingSwitchCell)
         tableView.register(R.nib.userCell)
+        //刷新
         tableView.headRefreshControl = nil
         tableView.footRefreshControl = nil
     }
@@ -47,6 +50,7 @@ class SettingsViewController: TableViewController {
         let output = viewModel.transform(input: input)
 
         let dataSource = RxTableViewSectionedReloadDataSource<SettingsSection>(configureCell: { dataSource, tableView, indexPath, item in
+            //item
             switch item {
             case .profileItem(let viewModel):
                 let cell = (tableView.dequeueReusableCell(withIdentifier: profileReuseIdentifier, for: indexPath) as? UserCell)!
@@ -69,6 +73,7 @@ class SettingsViewController: TableViewController {
                 return cell
             }
         }, titleForHeaderInSection: { dataSource, index in
+            //Section:标题
             let section = dataSource[index]
             return section.title
         })
@@ -77,6 +82,7 @@ class SettingsViewController: TableViewController {
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
 
+        //点击cell
         output.selectedEvent.drive(onNext: { [weak self] (item) in
             switch item {
             case .profileItem:
@@ -84,6 +90,7 @@ class SettingsViewController: TableViewController {
                     self?.navigator.show(segue: .userDetails(viewModel: viewModel), sender: self, transition: .detail)
                 }
             case .logoutItem:
+                //注销
                 self?.deselectSelectedRow()
                 self?.logoutAction()
             case .bannerItem,
@@ -136,6 +143,7 @@ class SettingsViewController: TableViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 
+    //注销
     func logout() {
         User.removeCurrentUser()
         AuthManager.removeToken()

@@ -10,7 +10,7 @@ import UIKit
 import RAMAnimatedTabBarController
 import Localize_Swift
 import RxSwift
-
+//
 enum HomeTabBarItem: Int {
     case search, news, notifications, settings, login
 
@@ -26,6 +26,7 @@ enum HomeTabBarItem: Int {
             let vc = NotificationsViewController(viewModel: viewModel, navigator: navigator)
             return NavigationController(rootViewController: vc)
         case .settings:
+            //设置页面
             let vc = SettingsViewController(viewModel: viewModel, navigator: navigator)
             return NavigationController(rootViewController: vc)
         case .login:
@@ -34,6 +35,7 @@ enum HomeTabBarItem: Int {
         }
     }
 
+    //icon
     var image: UIImage? {
         switch self {
         case .search: return R.image.icon_tabbar_search()
@@ -44,6 +46,7 @@ enum HomeTabBarItem: Int {
         }
     }
 
+    //标题
     var title: String {
         switch self {
         case .search: return R.string.localizable.homeTabBarSearchTitle.key.localized()
@@ -54,12 +57,15 @@ enum HomeTabBarItem: Int {
         }
     }
 
+    //动画
     var animation: RAMItemAnimation {
         var animation: RAMItemAnimation
         switch self {
+            //翻转动画
         case .search: animation = RAMFlipLeftTransitionItemAnimations()
         case .news: animation = RAMBounceAnimation()
         case .notifications: animation = RAMBounceAnimation()
+            //旋转
         case .settings: animation = RAMRightRotationAnimation()
         case .login: animation = RAMBounceAnimation()
         }
@@ -72,7 +78,9 @@ enum HomeTabBarItem: Int {
     func getController(with viewModel: ViewModel, navigator: Navigator) -> UIViewController {
         let vc = controller(with: viewModel, navigator: navigator)
         let item = RAMAnimatedTabBarItem(title: title, image: image, tag: rawValue)
+        //tabBarItem动画
         item.animation = animation
+        //设置主题色
         _ = themeService.rx
             .bind({ $0.text }, to: item.rx.iconColor)
             .bind({ $0.text }, to: item.rx.textColor)

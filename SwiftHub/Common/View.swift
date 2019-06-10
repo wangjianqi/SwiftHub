@@ -55,6 +55,7 @@ extension UIView {
     }
 
     open func setPriority(_ priority: UILayoutPriority, for axis: NSLayoutConstraint.Axis) {
+        //设置内容优先级
         self.setContentHuggingPriority(priority, for: axis)
         self.setContentCompressionResistancePriority(priority, for: axis)
     }
