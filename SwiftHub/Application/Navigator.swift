@@ -152,11 +152,12 @@ class Navigator {
         case .custom: return
         default: break
         }
-
+        //控制器
         guard let sender = sender else {
             fatalError("You need to pass in a sender for .navigation or .modal transitions")
         }
 
+        //如果是导航控制器
         if let nav = sender as? UINavigationController {
             //push root controller on navigation stack
             nav.pushViewController(target, animated: false)

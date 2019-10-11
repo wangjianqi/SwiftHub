@@ -26,7 +26,7 @@ class SettingsViewController: TableViewController {
 
     override func makeUI() {
         super.makeUI()
-
+        //切换语言设置标题
         languageChanged.subscribe(onNext: { [weak self] () in
             self?.navigationTitle = R.string.localizable.settingsNavigationTitle.key.localized()
         }).disposed(by: rx.disposeBag)
@@ -44,11 +44,13 @@ class SettingsViewController: TableViewController {
         super.bindViewModel()
         guard let viewModel = viewModel as? SettingsViewModel else { return }
 
+        //viewWillAppear
         let refresh = Observable.of(rx.viewWillAppear.mapToVoid(), languageChanged.asObservable()).merge()
         let input = SettingsViewModel.Input(trigger: refresh,
                                             selection: tableView.rx.modelSelected(SettingsSectionItem.self).asDriver())
         let output = viewModel.transform(input: input)
 
+        //dataSource
         let dataSource = RxTableViewSectionedReloadDataSource<SettingsSection>(configureCell: { dataSource, tableView, indexPath, item in
             //item
             switch item {
@@ -78,6 +80,7 @@ class SettingsViewController: TableViewController {
             return section.title
         })
 
+        //设置DataSource
         output.items.asObservable()
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
@@ -129,6 +132,7 @@ class SettingsViewController: TableViewController {
 
     func logoutAction() {
         var name = ""
+        //获取当前用户
         if let user = User.currentUser() {
             name = user.name ?? user.login ?? ""
         }
@@ -136,6 +140,7 @@ class SettingsViewController: TableViewController {
         let alertController = UIAlertController(title: name,
                                                 message: R.string.localizable.settingsLogoutAlertMessage.key.localized(),
                                                 preferredStyle: UIAlertController.Style.alert)
+        //退出
         let logoutAction = UIAlertAction(title: R.string.localizable.settingsLogoutAlertConfirmButtonTitle.key.localized(),
                                          style: .destructive) { [weak self] (result: UIAlertAction) in
             self?.logout()

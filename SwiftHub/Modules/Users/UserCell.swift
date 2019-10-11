@@ -15,6 +15,7 @@ class UserCell: DetailedTableViewCell {
         view.borderColor = .white
         view.borderWidth = Configs.BaseDimensions.borderWidth
         view.tintColor = .white
+        //圆角
         view.cornerRadius = 17
         view.snp.remakeConstraints({ (make) in
             make.size.equalTo(34)

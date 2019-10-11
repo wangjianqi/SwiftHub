@@ -17,6 +17,7 @@ import GoogleMobileAds
 
 class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable {
 
+    //viewModel
     var viewModel: ViewModel?
     var navigator: Navigator!
 
@@ -51,6 +52,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
     var emptyDataSetImage = R.image.image_no_result()
     var emptyDataSetImageTintColor = BehaviorRelay<UIColor?>(value: nil)
 
+    ///切换语言
     let languageChanged = BehaviorRelay<Void>(value: ())
 
     let motionShakeEvent = PublishSubject<Void>()
@@ -84,6 +86,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
         return view
     }()
 
+    ///view
     lazy var contentView: View = {
         let view = View()
         //        view.hero.id = "CententView"

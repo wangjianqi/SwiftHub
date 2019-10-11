@@ -21,7 +21,7 @@ enum UserType: String {
     case organization = "Organization"
 }
 
-/// User model
+/// User model  //ObjectMapper MessageKit
 struct User: Mappable, SenderType {
 
     var avatarUrl: String?  // A URL pointing to the user's public avatar.
@@ -78,6 +78,7 @@ struct User: Mappable, SenderType {
         }
     }
 
+    ///ObjectMapper
     mutating func mapping(map: Map) {
         avatarUrl <- map["avatar_url"]
         blog <- map["blog"]
@@ -173,6 +174,7 @@ extension User {
     }
 
     func save() {
+        //转JSONString
         if let json = self.toJSONString() {
             keychain[userKey] = json
         } else {
@@ -180,7 +182,9 @@ extension User {
         }
     }
 
+    //获取用户
     static func currentUser() -> User? {
+        //转Model
         if let json = keychain[userKey], let user = User(JSONString: json) {
             return user
         }

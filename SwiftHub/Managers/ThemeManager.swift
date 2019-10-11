@@ -14,7 +14,7 @@ import RAMAnimatedTabBarController
 import KafkaRefresh
 //状态栏
 let globalStatusBarStyle = BehaviorRelay<UIStatusBarStyle>(value: .default)
-
+//主题
 let themeService = ThemeType.service(initial: ThemeType.currentTheme())
 
 protocol Theme {

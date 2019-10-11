@@ -35,6 +35,7 @@ class UserViewController: TableViewController {
         return view
     }()
 
+    //名称
     lazy var navigationHeaderView: StackView = {
         let subviews: [UIView] = [self.usernameLabel, self.fullnameLabel]
         let view = StackView(arrangedSubviews: subviews)
@@ -64,6 +65,7 @@ class UserViewController: TableViewController {
         return view
     }()
 
+    //头像
     lazy var headerStackView: StackView = {
         let headerView = View()
         headerView.addSubview(self.ownerImageView)
@@ -86,6 +88,7 @@ class UserViewController: TableViewController {
     lazy var headerView: View = {
         let view = View()
         view.hero.id = "TopHeaderId"
+        ///头像  Buttons
         let subviews: [UIView] = [self.headerStackView, self.actionButtonsStackView]
         let stackView = StackView(arrangedSubviews: subviews)
         view.addSubview(stackView)
@@ -95,16 +98,19 @@ class UserViewController: TableViewController {
         return view
     }()
 
+    ///仓库
     lazy var repositoriesButton: Button = {
         let view = Button()
         return view
     }()
 
+    //追随者
     lazy var followersButton: Button = {
         let view = Button()
         return view
     }()
 
+    ///关注
     lazy var followingButton: Button = {
         let view = Button()
         return view
@@ -138,6 +144,7 @@ class UserViewController: TableViewController {
 
         emptyDataSetTitle = ""
         emptyDataSetImage = nil
+        
         stackView.insertArrangedSubview(headerView, at: 0)
         tableView.footRefreshControl = nil
         tableView.register(R.nib.userDetailCell)
@@ -196,18 +203,22 @@ class UserViewController: TableViewController {
 
         output.selectedEvent.drive(onNext: { [weak self] (item) in
             switch item {
+                //星星
             case .starsItem:
                 if let viewModel = viewModel.viewModel(for: item) as? RepositoriesViewModel {
                     self?.navigator.show(segue: .repositories(viewModel: viewModel), sender: self)
                 }
+                //正在看
             case .watchingItem:
                 if let viewModel = viewModel.viewModel(for: item) as? RepositoriesViewModel {
                     self?.navigator.show(segue: .repositories(viewModel: viewModel), sender: self)
                 }
+                //事件
             case .eventsItem:
                 if let viewModel = viewModel.viewModel(for: item) as? EventsViewModel {
                     self?.navigator.show(segue: .events(viewModel: viewModel), sender: self)
                 }
+                //
             case .companyItem:
                 if let viewModel = viewModel.viewModel(for: item) as? UserViewModel {
                     self?.navigator.show(segue: .userDetails(viewModel: viewModel), sender: self)

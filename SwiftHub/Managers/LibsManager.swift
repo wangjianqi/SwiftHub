@@ -166,6 +166,7 @@ extension LibsManager {
         analytics.log(.flexOpened)
     }
 
+    ///删除缓存
     func removeKingfisherCache() -> Observable<Void> {
         return ImageCache.default.rx.clearCache()
     }
