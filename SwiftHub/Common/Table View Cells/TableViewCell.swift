@@ -15,6 +15,7 @@ class TableViewCell: UITableViewCell {
     var cellDisposeBag = DisposeBag()
 
     var isSelection = false
+    //选中颜色
     var selectionColor: UIColor? {
         didSet {
             setSelected(isSelected, animated: true)

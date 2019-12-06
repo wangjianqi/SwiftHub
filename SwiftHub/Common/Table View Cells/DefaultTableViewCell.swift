@@ -9,7 +9,7 @@
 import UIKit
 
 class DefaultTableViewCell: TableViewCell {
-
+    //头像
     lazy var leftImageView: ImageView = {
         let view = ImageView(frame: CGRect())
         view.contentMode = .scaleAspectFit
@@ -18,7 +18,7 @@ class DefaultTableViewCell: TableViewCell {
         })
         return view
     }()
-
+    //badge
     lazy var badgeImageView: ImageView = {
         let view = ImageView(frame: CGRect())
         view.backgroundColor = .white
@@ -96,6 +96,7 @@ class DefaultTableViewCell: TableViewCell {
 
     func bind(to viewModel: DefaultTableViewCellViewModel) {
         viewModel.title.asDriver().drive(titleLabel.rx.text).disposed(by: rx.disposeBag)
+        //replaceNilWith
         viewModel.title.asDriver().replaceNilWith("").map { $0.isEmpty }.drive(titleLabel.rx.isHidden).disposed(by: rx.disposeBag)
 
         viewModel.detail.asDriver().drive(detailLabel.rx.text).disposed(by: rx.disposeBag)
@@ -113,10 +114,10 @@ class DefaultTableViewCell: TableViewCell {
         viewModel.badgeColor.asDriver().drive(badgeImageView.rx.tintColor).disposed(by: rx.disposeBag)
 
         viewModel.hidesDisclosure.asDriver().drive(rightImageView.rx.isHidden).disposed(by: rx.disposeBag)
-
+        //filterNil
         viewModel.image.asDriver().filterNil()
             .drive(leftImageView.rx.image).disposed(by: rx.disposeBag)
-
+        //map:对imageUrl进行转换
         viewModel.imageUrl.map { $0?.url }.asDriver(onErrorJustReturn: nil).filterNil()
             .drive(leftImageView.rx.imageURL).disposed(by: rx.disposeBag)
 

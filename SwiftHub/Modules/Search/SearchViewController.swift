@@ -57,7 +57,7 @@ enum SearchModeSegments: Int {
         }
     }
 }
-
+//为何不用String: 因为需要使用的是索引
 enum SortRepositoryItems: Int {
     case bestMatch, mostStars, fewestStars, mostForks, fewestForks, recentlyUpdated, lastRecentlyUpdated
 
@@ -139,7 +139,7 @@ class SearchViewController: TableViewController {
         let view = BarButtonItem(image: R.image.icon_navigation_language(), style: .done, target: nil, action: nil)
         return view
     }()
-
+    //segment
     lazy var segmentedControl: SegmentedControl = {
         let items = [SearchTypeSegments.repositories.title, SearchTypeSegments.users.title]
         let images = [R.image.icon_cell_badge_repository()!, R.image.icon_cell_badge_user()!]
@@ -151,15 +151,16 @@ class SearchViewController: TableViewController {
         })
         return view
     }()
-
+    //趋势view
     let trendingPeriodView = View()
+    //周期
     lazy var trendingPeriodSegmentedControl: SegmentedControl = {
         let items = [TrendingPeriodSegments.daily.title, TrendingPeriodSegments.weekly.title, TrendingPeriodSegments.montly.title]
         let view = SegmentedControl(sectionTitles: items)
         view.selectedSegmentIndex = 0
         return view
     }()
-
+    //搜索框
     let searchModeView = View()
     lazy var searchModeSegmentedControl: SegmentedControl = {
         let items = [SearchModeSegments.trending.title, SearchModeSegments.search.title]
@@ -193,8 +194,9 @@ class SearchViewController: TableViewController {
         let view = DropDownView(anchorView: self.tableView)
         return view
     }()
-
+    //仓库排序
     let sortRepositoryItem = BehaviorRelay(value: SortRepositoryItems.bestMatch)
+    //用户排序
     let sortUserItem = BehaviorRelay(value: SortUserItems.bestMatch)
 
     override func viewDidLoad() {
@@ -236,7 +238,7 @@ class SearchViewController: TableViewController {
         labelsStackView.snp.makeConstraints { (make) in
             make.height.equalTo(50)
         }
-
+        //选择
         sortDropDown.selectionAction = { [weak self] (index: Int, item: String) in
             if self?.segmentedControl.selectedSegmentIndex == 0 {
                 if let item = SortRepositoryItems(rawValue: index) {
@@ -250,7 +252,7 @@ class SearchViewController: TableViewController {
         }
 
         bannerView.isHidden = true
-
+        //注册cell
         tableView.register(R.nib.trendingRepositoryCell)
         tableView.register(R.nib.trendingUserCell)
         tableView.register(R.nib.repositoryCell)
@@ -287,7 +289,9 @@ class SearchViewController: TableViewController {
                                           languageTrigger: languageChanged.asObservable(),
                                           keywordTrigger: searchBar.rx.text.orEmpty.asDriver(),
                                           textDidBeginEditing: searchBar.rx.textDidBeginEditing.asDriver(),
+                                          //rightItem
                                           languagesSelection: rightBarButton.rx.tap.asObservable(),
+                                          //切换segment
                                           searchTypeSegmentSelection: searchTypeSegmentSelected,
                                           trendingPeriodSegmentSelection: trendingPerionSegmentSelected,
                                           searchModeSelection: searchModeSegmentSelected,
@@ -299,11 +303,13 @@ class SearchViewController: TableViewController {
         viewModel.loading.asObservable().bind(to: isLoading).disposed(by: rx.disposeBag)
         viewModel.headerLoading.asObservable().bind(to: isHeaderLoading).disposed(by: rx.disposeBag)
         viewModel.footerLoading.asObservable().bind(to: isFooterLoading).disposed(by: rx.disposeBag)
+        //错误绑定
         viewModel.parsedError.asObservable().bind(to: error).disposed(by: rx.disposeBag)
-
+        //数据源
         let dataSource = RxTableViewSectionedReloadDataSource<SearchSection>(configureCell: { dataSource, tableView, indexPath, item in
             switch item {
             case .trendingRepositoriesItem(let cellViewModel):
+                //仓库cell
                 let cell = tableView.dequeueReusableCell(withIdentifier: trendingRepositoryReuseIdentifier, for: indexPath)!
                 cell.bind(to: cellViewModel)
                 return cell
@@ -316,6 +322,7 @@ class SearchViewController: TableViewController {
                 cell.bind(to: cellViewModel)
                 return cell
             case .usersItem(let cellViewModel):
+                //用户
                 let cell = tableView.dequeueReusableCell(withIdentifier: userReuseIdentifier, for: indexPath)!
                 cell.bind(to: cellViewModel)
                 return cell
@@ -350,12 +357,14 @@ class SearchViewController: TableViewController {
         output.hidesSortLabel.drive(labelsStackView.rx.isHidden).disposed(by: rx.disposeBag)
         output.hidesSortLabel.drive(totalCountLabel.rx.isHidden).disposed(by: rx.disposeBag)
         output.hidesSortLabel.drive(sortLabel.rx.isHidden).disposed(by: rx.disposeBag)
-
+        //点击排序
         sortLabel.rx.tap().subscribe(onNext: { [weak self] () in
+            //弹出框
             self?.sortDropDown.show()
         }).disposed(by: rx.disposeBag)
 
         output.sortItems.drive(onNext: { [weak self] (items) in
+            //数据源
             self?.sortDropDown.dataSource = items
             self?.sortDropDown.reloadAllComponents()
         }).disposed(by: rx.disposeBag)

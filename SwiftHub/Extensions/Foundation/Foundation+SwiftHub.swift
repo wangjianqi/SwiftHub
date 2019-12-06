@@ -17,16 +17,19 @@ extension Int {
     func sizeFromByte() -> String {
         return ByteCountFormatter.string(fromByteCount: Int64(self), countStyle: .file)
     }
-
+    //格式化
     func kFormatted() -> String {
         let sign = ((self < 0) ? "-" : "" )
         if self < 1000 {
             return "\(sign)\(self)"
         }
+        //转double
         let num = fabs(self.double)
         let exp: Int = Int(log10(num) / 3.0 ) //log10(1000))
+        //单位
         let units: [String] = ["K", "M", "G", "T", "P", "E"]
         let roundedNum: Double = round(10 * num / pow(1000.0, Double(exp))) / 10
+        //单位
         return "\(sign)\(roundedNum)\(units[exp-1])"
     }
 }

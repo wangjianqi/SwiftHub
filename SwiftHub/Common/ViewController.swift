@@ -29,8 +29,9 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
     required init?(coder aDecoder: NSCoder) {
         super.init(nibName: nil, bundle: nil)
     }
-
+    //加载中
     let isLoading = BehaviorRelay(value: false)
+    //错误
     let error = PublishSubject<ApiError>()
 
     var automaticallyAdjustsLeftBarButtonItem = true
@@ -49,22 +50,22 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
     var emptyDataSetDescription = ""
     var emptyDataSetImage = R.image.image_no_result()
     var emptyDataSetImageTintColor = BehaviorRelay<UIColor?>(value: nil)
-
+    //语言变化
     let languageChanged = BehaviorRelay<Void>(value: ())
 
     let motionShakeEvent = PublishSubject<Void>()
-
+    //搜索框
     lazy var searchBar: SearchBar = {
         let view = SearchBar()
         return view
     }()
-
+    //返回
     lazy var backBarButton: BarButtonItem = {
         let view = BarButtonItem()
         view.title = ""
         return view
     }()
-
+    //close
     lazy var closeBarButton: BarButtonItem = {
         let view = BarButtonItem(image: R.image.icon_navigation_close(),
                                  style: .plain,
@@ -72,7 +73,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
                                  action: nil)
         return view
     }()
-
+    //广告
     lazy var bannerView: GADBannerView = {
         let view = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         view.rootViewController = self
@@ -84,13 +85,14 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
     lazy var contentView: View = {
         let view = View()
         //        view.hero.id = "CententView"
+        //添加到self.view上了
         self.view.addSubview(view)
         view.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
         return view
     }()
-
+    //垂直
     lazy var stackView: StackView = {
         let subviews: [UIView] = []
         let view = StackView(arrangedSubviews: subviews)
@@ -108,7 +110,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
         // Do any additional setup after loading the view.
         makeUI()
         bindViewModel()
-
+        //关闭
         closeBarButton.rx.tap.asObservable().subscribe(onNext: { [weak self] () in
             self?.navigator.dismiss(sender: self)
         }).disposed(by: rx.disposeBag)
@@ -137,6 +139,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
         NotificationCenter.default
             .rx.notification(NSNotification.Name(LCLLanguageChangeNotification))
             .subscribe { [weak self] (event) in
+                //接收事件
                 self?.languageChanged.accept(())
             }.disposed(by: rx.disposeBag)
 
@@ -223,7 +226,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
             motionShakeEvent.onNext(())
         }
     }
-
+    //设备旋转
     func orientationChanged() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.updateUI()
@@ -262,7 +265,7 @@ extension ViewController {
         }
         return view
     }
-
+    //显示Flex
     @objc func handleOneFingerSwipe(swipeRecognizer: UISwipeGestureRecognizer) {
         if swipeRecognizer.state == .recognized, canOpenFlex {
             LibsManager.shared.showFlex()
@@ -288,23 +291,23 @@ extension Reactive where Base: ViewController {
 }
 
 extension ViewController: DZNEmptyDataSetSource {
-
+    //标题
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         return NSAttributedString(string: emptyDataSetTitle)
     }
-
+    //描述
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         return NSAttributedString(string: emptyDataSetDescription)
     }
-
+    //图片
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return emptyDataSetImage
     }
-
+    //图片颜色
     func imageTintColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
         return emptyDataSetImageTintColor.value
     }
-
+    //背景
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
         return .clear
     }
@@ -315,15 +318,16 @@ extension ViewController: DZNEmptyDataSetSource {
 }
 
 extension ViewController: DZNEmptyDataSetDelegate {
-
+    //是否显示
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        //不是在加载中
         return !isLoading.value
     }
-
+    //允许滑动
     func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
         return true
     }
-
+    //点击
     func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
         emptyDataSetButtonTap.onNext(())
     }

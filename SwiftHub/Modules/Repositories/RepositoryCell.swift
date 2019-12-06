@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+//仓库cell
 class RepositoryCell: DefaultTableViewCell {
 
     lazy var starButton: Button = {

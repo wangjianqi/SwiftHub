@@ -11,6 +11,7 @@ import UIKit
 class TableView: UITableView {
 
     init () {
+        //grouped
         super.init(frame: CGRect(), style: .grouped)
     }
 
@@ -30,6 +31,7 @@ class TableView: UITableView {
         sectionHeaderHeight = 40
         backgroundColor = .clear
         cellLayoutMarginsFollowReadableWidth = false
+        //隐藏键盘
         keyboardDismissMode = .onDrag
         separatorColor = .clear
         separatorInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: 0)

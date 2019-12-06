@@ -185,6 +185,7 @@ struct RepositorySearch: Mappable {
     var items: [Repository] = []
     var totalCount: Int = 0
     var incompleteResults: Bool = false
+    //是否有更多
     var hasNextPage: Bool = false
     var endCursor: String?
 
@@ -231,7 +232,7 @@ struct TrendingRepository: Mappable {
 
     init?(map: Map) {}
     init() {}
-
+    //映射
     mutating func mapping(map: Map) {
         author <- map["author"]
         name <- map["name"]
@@ -245,7 +246,7 @@ struct TrendingRepository: Mappable {
         builtBy <- map["builtBy"]
     }
 }
-
+//Equatable
 extension TrendingRepository: Equatable {
     static func == (lhs: TrendingRepository, rhs: TrendingRepository) -> Bool {
         return lhs.fullname == rhs.fullname

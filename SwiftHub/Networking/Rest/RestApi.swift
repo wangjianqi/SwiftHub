@@ -13,10 +13,11 @@ import ObjectMapper
 import Moya
 import Moya_ObjectMapper
 import Alamofire
-
+//Moya网络错误
 typealias MoyaError = Moya.MoyaError
-
+//错误
 enum ApiError: Error {
+    //服务器错误
     case serverError(response: ErrorResponse)
 }
 

@@ -31,7 +31,7 @@ extension UIColor {
     static func separator() -> UIColor {
         return themeService.type.associatedObject.separator
     }
-
+    //文本颜色
     static func text() -> UIColor {
         return themeService.type.associatedObject.text
     }

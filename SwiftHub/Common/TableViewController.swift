@@ -12,17 +12,20 @@ import RxCocoa
 import KafkaRefresh
 
 class TableViewController: ViewController, UIScrollViewDelegate {
-
+    //header
     let headerRefreshTrigger = PublishSubject<Void>()
+    //footer
     let footerRefreshTrigger = PublishSubject<Void>()
-
+    //下拉刷新
     let isHeaderLoading = BehaviorRelay(value: false)
+    //上拉加载
     let isFooterLoading = BehaviorRelay(value: false)
 
     lazy var tableView: TableView = {
         let view = TableView(frame: CGRect(), style: .plain)
         view.emptyDataSetSource = self
         view.emptyDataSetDelegate = self
+        //设置代理
         view.rx.setDelegate(self).disposed(by: rx.disposeBag)
         return view
     }()
@@ -57,7 +60,7 @@ class TableViewController: ViewController, UIScrollViewDelegate {
 
         isHeaderLoading.bind(to: tableView.headRefreshControl.rx.isAnimating).disposed(by: rx.disposeBag)
         isFooterLoading.bind(to: tableView.footRefreshControl.rx.isAnimating).disposed(by: rx.disposeBag)
-
+        //自动刷新
         tableView.footRefreshControl.autoRefreshOnFoot = true
 
         let updateEmptyDataSet = Observable.of(isLoading.mapToVoid().asObservable(), emptyDataSetImageTintColor.mapToVoid(), languageChanged.asObservable()).merge()
@@ -84,7 +87,7 @@ class TableViewController: ViewController, UIScrollViewDelegate {
 }
 
 extension TableViewController {
-
+    //取消选择
     func deselectSelectedRow() {
         if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
             selectedIndexPaths.forEach({ (indexPath) in
@@ -95,7 +98,7 @@ extension TableViewController {
 }
 
 extension TableViewController: UITableViewDelegate {
-
+    //headerView
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let view = view as? UITableViewHeaderFooterView {
             view.textLabel?.font = UIFont(name: ".SFUIText-Bold", size: 15.0)!

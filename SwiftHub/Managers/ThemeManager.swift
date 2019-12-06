@@ -14,12 +14,13 @@ import RAMAnimatedTabBarController
 import KafkaRefresh
 
 let globalStatusBarStyle = BehaviorRelay<UIStatusBarStyle>(value: .default)
-
+//主题
 let themeService = ThemeType.service(initial: ThemeType.currentTheme())
 
 protocol Theme {
     var primary: UIColor { get }
     var primaryDark: UIColor { get }
+    //主题样式
     var secondary: UIColor { get }
     var secondaryDark: UIColor { get }
     var separator: UIColor { get }

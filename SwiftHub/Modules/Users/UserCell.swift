@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+//用户cell
 class UserCell: DefaultTableViewCell {
 
     lazy var followButton: Button = {
@@ -16,6 +16,7 @@ class UserCell: DefaultTableViewCell {
         view.borderWidth = Configs.BaseDimensions.borderWidth
         view.tintColor = .white
         view.cornerRadius = 17
+        //重新添加约束
         view.snp.remakeConstraints({ (make) in
             make.size.equalTo(34)
         })

@@ -30,7 +30,7 @@ import Mixpanel
 import Firebase
 import DropDown
 import Toast_Swift
-
+//换个名字
 typealias DropDownView = DropDown
 
 /// The manager class for configuring all libraries used in app.

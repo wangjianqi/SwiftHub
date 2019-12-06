@@ -29,15 +29,18 @@ class SearchViewModel: ViewModel, ViewModelType {
     }
 
     struct Output {
+        //搜索结果
         let items: BehaviorRelay<[SearchSection]>
         let sortItems: Driver<[String]>
         let sortText: Driver<String>
         let totalCountText: Driver<String>
         let textDidBeginEditing: Driver<Void>
+        //键盘隐藏
         let dismissKeyboard: Driver<Void>
         let languagesSelection: Driver<LanguagesViewModel>
         let repositorySelected: Driver<RepositoryViewModel>
         let userSelected: Driver<UserViewModel>
+        //隐藏趋势
         let hidesTrendingPeriodSegment: Driver<Bool>
         let hidesSearchModeSegment: Driver<Bool>
         let hidesSortLabel: Driver<Bool>
@@ -45,6 +48,7 @@ class SearchViewModel: ViewModel, ViewModelType {
 
     let searchType = BehaviorRelay<SearchTypeSegments>(value: .repositories)
     let trendingPeriod = BehaviorRelay<TrendingPeriodSegments>(value: .daily)
+    //搜索
     let searchMode = BehaviorRelay<SearchModeSegments>(value: .trending)
 
     let keyword = BehaviorRelay(value: "")

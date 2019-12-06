@@ -235,6 +235,7 @@ enum TrendingUserType: String {
 }
 
 /// TrendingUser model
+//用户
 struct TrendingUser: Mappable {
 
     var username: String?
