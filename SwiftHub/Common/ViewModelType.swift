@@ -20,27 +20,26 @@ protocol ViewModelType {
 
 class ViewModel: NSObject {
 
-    //协议
     let provider: SwiftHubAPI
 
     var page = 1
-
+    //加载中
     let loading = ActivityIndicator()
     let headerLoading = ActivityIndicator()
     let footerLoading = ActivityIndicator()
 
     let error = ErrorTracker()
-    //解析错误
+    //解析出错
     let parsedError = PublishSubject<ApiError>()
 
-    //构造方法
     init(provider: SwiftHubAPI) {
         self.provider = provider
         super.init()
-
+        // 错误
         error.asObservable().map { (error) -> ApiError? in
             do {
                 let errorResponse = error as? MoyaError
+                //转JSON
                 if let body = try errorResponse?.response?.mapJSON() as? [String: Any],
                     let errorResponse = Mapper<ErrorResponse>().map(JSON: body) {
                     return ApiError.serverError(response: errorResponse)
@@ -52,7 +51,7 @@ class ViewModel: NSObject {
         }.filterNil().bind(to: parsedError).disposed(by: rx.disposeBag)
 
         error.asDriver().drive(onNext: { (error) in
-            //输出错误
+            //错误日志
             logError("\(error)")
         }).disposed(by: rx.disposeBag)
     }

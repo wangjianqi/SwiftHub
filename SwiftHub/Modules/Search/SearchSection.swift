@@ -10,10 +10,11 @@ import Foundation
 import RxDataSources
 
 enum SearchSection {
+    //head标题
     case repositories(title: String, items: [SearchSectionItem])
     case users(title: String, items: [SearchSectionItem])
 }
-
+//不同类型cell
 enum SearchSectionItem {
     case trendingRepositoriesItem(cellViewModel: TrendingRepositoryCellViewModel)
     case trendingUsersItem(cellViewModel: TrendingUserCellViewModel)
@@ -33,6 +34,7 @@ extension SearchSection: SectionModelType {
 
     var items: [SearchSectionItem] {
         switch  self {
+            //map??
         case .repositories(_, let items): return items.map {$0}
         case .users(_, let items): return items.map {$0}
         }
@@ -40,6 +42,7 @@ extension SearchSection: SectionModelType {
 
     init(original: SearchSection, items: [Item]) {
         switch original {
+            //self=
         case .repositories(let title, let items): self = .repositories(title: title, items: items)
         case .users(let title, let items): self = .users(title: title, items: items)
         }

@@ -12,7 +12,6 @@ import RxCocoa
 import SnapKit
 import IQKeyboardManagerSwift
 import CocoaLumberjack
-import ChameleonFramework
 import Kingfisher
 import FLEX
 import Fabric
@@ -31,7 +30,7 @@ import Mixpanel
 import Firebase
 import DropDown
 import Toast_Swift
-
+//换个名字
 typealias DropDownView = DropDown
 
 /// The manager class for configuring all libraries used in app.
@@ -91,8 +90,8 @@ class LibsManager: NSObject {
         ToastManager.shared.isTapToDismissEnabled = true
         ToastManager.shared.position = .top
         var style = ToastStyle()
-        style.backgroundColor = .flatRed
-        style.messageColor = .white
+        style.backgroundColor = UIColor.Material.red
+        style.messageColor = UIColor.Material.white
         style.imageSize = CGSize(width: 30, height: 30)
         ToastManager.shared.style = style
     }

@@ -10,22 +10,17 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-//cellViewModel
-class LanguageCellViewModel {
+class LanguageCellViewModel: DefaultTableViewCellViewModel {
 
-    //
-    let title: Driver<String>
-
-    var language: String
+    let language: String
 
     init(with language: String) {
         self.language = language
-        //生成Driver
-        title = Driver.just("\(displayName(forLanguage: language))")
+        super.init()
+        title.accept(displayName(forLanguage: language))
     }
 }
 
-//显示的name
 func displayName(forLanguage language: String) -> String {
     let local = Locale(identifier: language)
     if let displayName = local.localizedString(forIdentifier: language) {

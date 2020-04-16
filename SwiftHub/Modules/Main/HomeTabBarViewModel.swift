@@ -12,11 +12,12 @@ import RxSwift
 import WhatsNewKit
 
 class HomeTabBarViewModel: ViewModel, ViewModelType {
-
+    //input
     struct Input {
+        //
         let whatsNewTrigger: Observable<Void>
     }
-
+    //output
     struct Output {
         let tabBarItems: Driver<[HomeTabBarItem]>
         let openWhatsNew: Driver<WhatsNewBlock>
@@ -28,7 +29,7 @@ class HomeTabBarViewModel: ViewModel, ViewModelType {
         whatsNewManager = WhatsNewManager.shared
         super.init(provider: provider)
     }
-
+    //transform
     func transform(input: Input) -> Output {
 
         let tabBarItems = loggedIn.map { (loggedIn) -> [HomeTabBarItem] in

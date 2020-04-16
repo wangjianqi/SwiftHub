@@ -13,12 +13,11 @@ import ObjectMapper
 import Moya
 import Moya_ObjectMapper
 import Alamofire
-
-//Moya错误
+//Moya网络错误
 typealias MoyaError = Moya.MoyaError
-
+//错误
 enum ApiError: Error {
-    //错误
+    //服务器错误
     case serverError(response: ErrorResponse)
 }
 
@@ -65,17 +64,17 @@ extension RestApi {
             params["code"] = code
             params["redirect_uri"] = redirectUri
             params["state"] = state
-            Alamofire.request("https://github.com/login/oauth/access_token",
-                              method: .post,
-                              parameters: params,
-                              encoding: URLEncoding.default,
-                              headers: ["Accept": "application/json"])
+            AF.request("https://github.com/login/oauth/access_token",
+                       method: .post,
+                       parameters: params,
+                       encoding: URLEncoding.default,
+                       headers: ["Accept": "application/json"])
                 .responseJSON(completionHandler: { (response) in
                     if let error = response.error {
                         single(.error(error))
                         return
                     }
-                    if let json = response.result.value as? [String: Any] {
+                    if let json = response.value as? [String: Any] {
                         if let token = Mapper<Token>().map(JSON: json) {
                             single(.success(token))
                             return
@@ -275,8 +274,8 @@ extension RestApi {
         return trendingRequestArray(.trendingDevelopers(language: language, since: since), type: TrendingUser.self)
     }
 
-    func languages() -> Single<Languages> {
-        return trendingRequestObject(.languages, type: Languages.self)
+    func languages() -> Single<[Language]> {
+        return trendingRequestArray(.languages, type: Language.self)
     }
 }
 

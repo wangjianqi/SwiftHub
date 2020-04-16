@@ -24,7 +24,7 @@ class SlideImageView: ImageSlideshow {
     func makeUI() {
         contentScaleMode = .scaleAspectFit
         contentMode = .scaleAspectFill
-        backgroundColor = .flatWhite
+        backgroundColor = UIColor.Material.grey100
         borderWidth = Configs.BaseDimensions.borderWidth
         borderColor = .white
         slideshowInterval = 3
@@ -36,5 +36,32 @@ class SlideImageView: ImageSlideshow {
         setImageInputs(sources.map({ (url) -> KingfisherSource in
             KingfisherSource(url: url)
         }))
+    }
+
+    func present(from controller: UIViewController) {
+        if #available(iOS 13.0, *) {
+            self.presentFullScreenControllerForIos13(from: controller)
+        } else {
+            self.presentFullScreenController(from: controller)
+        }
+    }
+}
+
+extension ImageSlideshow {
+    @discardableResult
+    open func presentFullScreenControllerForIos13(from controller: UIViewController) -> FullScreenSlideshowViewController {
+        let fullscreen = FullScreenSlideshowViewController()
+        fullscreen.pageSelected = {[weak self] (page: Int) in
+            self?.setCurrentPage(page, animated: false)
+        }
+
+        fullscreen.initialPage = currentPage
+        fullscreen.inputs = images
+        // slideshowTransitioningDelegate = ZoomAnimatedTransitioningDelegate(slideshowView: self, slideshowController: fullscreen)
+        fullscreen.transitioningDelegate = slideshowTransitioningDelegate
+        fullscreen.modalPresentationStyle = .fullScreen
+        controller.present(fullscreen, animated: true, completion: nil)
+
+        return fullscreen
     }
 }

@@ -29,15 +29,18 @@ class SearchViewModel: ViewModel, ViewModelType {
     }
 
     struct Output {
+        //搜索结果
         let items: BehaviorRelay<[SearchSection]>
         let sortItems: Driver<[String]>
         let sortText: Driver<String>
         let totalCountText: Driver<String>
         let textDidBeginEditing: Driver<Void>
+        //键盘隐藏
         let dismissKeyboard: Driver<Void>
         let languagesSelection: Driver<LanguagesViewModel>
         let repositorySelected: Driver<RepositoryViewModel>
         let userSelected: Driver<UserViewModel>
+        //隐藏趋势
         let hidesTrendingPeriodSegment: Driver<Bool>
         let hidesSearchModeSegment: Driver<Bool>
         let hidesSortLabel: Driver<Bool>
@@ -45,6 +48,7 @@ class SearchViewModel: ViewModel, ViewModelType {
 
     let searchType = BehaviorRelay<SearchTypeSegments>(value: .repositories)
     let trendingPeriod = BehaviorRelay<TrendingPeriodSegments>(value: .daily)
+    //搜索
     let searchMode = BehaviorRelay<SearchModeSegments>(value: .trending)
 
     let keyword = BehaviorRelay(value: "")
@@ -62,7 +66,7 @@ class SearchViewModel: ViewModel, ViewModelType {
         let elements = BehaviorRelay<[SearchSection]>(value: [])
         let trendingRepositoryElements = BehaviorRelay<[TrendingRepository]>(value: [])
         let trendingUserElements = BehaviorRelay<[TrendingUser]>(value: [])
-        let languageElements = BehaviorRelay<Languages?>(value: nil)
+        let languageElements = BehaviorRelay<[Language]>(value: [])
         let repositorySelected = PublishSubject<Repository>()
         let userSelected = PublishSubject<User>()
         let dismissKeyboard = input.selection.mapToVoid()
@@ -71,7 +75,7 @@ class SearchViewModel: ViewModel, ViewModelType {
         input.trendingPeriodSegmentSelection.bind(to: trendingPeriod).disposed(by: rx.disposeBag)
         input.searchModeSelection.bind(to: searchMode).disposed(by: rx.disposeBag)
 
-        input.keywordTrigger.skip(1).debounce(0.5).distinctUntilChanged().asObservable()
+        input.keywordTrigger.skip(1).debounce(DispatchTimeInterval.milliseconds(500)).distinctUntilChanged().asObservable()
             .bind(to: keyword).disposed(by: rx.disposeBag)
 
         Observable.combineLatest(keyword, currentLanguage).map { keyword, currentLanguage in
@@ -182,16 +186,18 @@ class SearchViewModel: ViewModel, ViewModelType {
             }
         }).disposed(by: rx.disposeBag)
 
-        keyword.asDriver().debounce(3.0).filterEmpty().drive(onNext: { (keyword) in
+        keyword.asDriver().debounce(DispatchTimeInterval.milliseconds(300)).filterEmpty().drive(onNext: { (keyword) in
             analytics.log(.search(keyword: keyword))
         }).disposed(by: rx.disposeBag)
 
-        Observable.just(()).flatMapLatest { () -> Observable<Languages> in
+        Observable.just(()).flatMapLatest { () -> Observable<[Language]> in
             return self.provider.languages()
                 .trackActivity(self.loading)
                 .trackError(self.error)
-            }.subscribe(onNext: { (item) in
-                languageElements.accept(item)
+            }.subscribe(onNext: { (items) in
+                languageElements.accept(items)
+            }, onError: { (error) in
+                logError(error.localizedDescription)
             }).disposed(by: rx.disposeBag)
 
         let trendingPeriodSegment = BehaviorRelay(value: TrendingPeriodSegments.daily)

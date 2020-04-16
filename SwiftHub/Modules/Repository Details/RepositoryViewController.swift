@@ -14,6 +14,7 @@ import BonMot
 import FloatingPanel
 
 private let reuseIdentifier = R.reuseIdentifier.repositoryDetailCell.identifier
+private let languagesReuseIdentifier = R.reuseIdentifier.languagesCell.identifier
 
 class RepositoryViewController: TableViewController {
 
@@ -127,6 +128,7 @@ class RepositoryViewController: TableViewController {
         stackView.insertArrangedSubview(headerView, at: 0)
         tableView.footRefreshControl = nil
         tableView.register(R.nib.repositoryDetailCell)
+        tableView.register(R.nib.languagesCell)
         bannerView.isHidden = true
     }
 
@@ -167,6 +169,10 @@ class RepositoryViewController: TableViewController {
                  .sourceItem(let viewModel),
                  .starHistoryItem(let viewModel):
                 let cell = (tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? RepositoryDetailCell)!
+                cell.bind(to: viewModel)
+                return cell
+            case .languagesItem(let viewModel):
+                let cell = (tableView.dequeueReusableCell(withIdentifier: languagesReuseIdentifier, for: indexPath) as? LanguagesCell)!
                 cell.bind(to: viewModel)
                 return cell
             }
@@ -259,17 +265,17 @@ class RepositoryViewController: TableViewController {
 
         output.watchersCount.drive(onNext: { [weak self] (count) in
             let text = R.string.localizable.repositoryWatchersButtonTitle.key.localized()
-            self?.watchersButton.setAttributedTitle(self?.attributetText(title: text, value: count), for: .normal)
+            self?.watchersButton.setAttributedTitle(self?.attributedText(title: text, value: count), for: .normal)
         }).disposed(by: rx.disposeBag)
 
         output.starsCount.drive(onNext: { [weak self] (count) in
             let text = R.string.localizable.repositoryStarsButtonTitle.key.localized()
-            self?.starsButton.setAttributedTitle(self?.attributetText(title: text, value: count), for: .normal)
+            self?.starsButton.setAttributedTitle(self?.attributedText(title: text, value: count), for: .normal)
         }).disposed(by: rx.disposeBag)
 
         output.forksCount.drive(onNext: { [weak self] (count) in
             let text = R.string.localizable.repositoryForksButtonTitle.key.localized()
-            self?.forksButton.setAttributedTitle(self?.attributetText(title: text, value: count), for: .normal)
+            self?.forksButton.setAttributedTitle(self?.attributedText(title: text, value: count), for: .normal)
         }).disposed(by: rx.disposeBag)
 
         output.imageSelected.drive(onNext: { [weak self] (viewModel) in
@@ -292,7 +298,8 @@ class RepositoryViewController: TableViewController {
             guard let self = self else { return }
             if let url = content?.htmlUrl?.url {
                 self.panelContent.load(url: url)
-                self.panel.addPanel(toParent: self, belowView: nil, animated: true)
+                self.panel.addPanel(toParent: self, belowView: nil, animated: false)
+                self.panel.move(to: .tip, animated: true)
             } else {
                 self.panel.removePanelFromParent(animated: false)
             }
@@ -303,7 +310,7 @@ class RepositoryViewController: TableViewController {
         }).disposed(by: rx.disposeBag)
     }
 
-    func attributetText(title: String, value: Int) -> NSAttributedString {
+    func attributedText(title: String, value: Int) -> NSAttributedString {
         let titleText = title.styled(with: .color(.white),
                                      .font(.boldSystemFont(ofSize: 12)),
                                      .alignment(.center))

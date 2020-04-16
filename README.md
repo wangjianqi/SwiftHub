@@ -3,11 +3,15 @@
 </p>
 
 <p align="center">
-  GitHub iOS client in RxSwift and MVVM-C architecture.
+  GitHub iOS client in RxSwift and MVVM-C clean architecture.
 </p>
 
 <p align="center">
-  KotlinHub - Android version coming soon!
+  KotlinHub - Android version is coming soon!
+</p>
+
+<p align="center">  
+  SwiftUI and Combine coming soon!
 </p>
 
 <p align="center">
@@ -77,6 +81,7 @@
 - [x] Crash reporting ([Crashlytics](https://fabric.io/kits/ios/crashlytics))
 - [x] Logging ([CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack))
 - [x] Google ads implementation, can be enabled/disabled from settings ([Firebase AdMob](https://firebase.google.com/docs/admob/ios/quick-start))
+- [ ] Migrate to Apple's new [SwiftUI](https://developer.apple.com/xcode/swiftui/) and [Combine](https://developer.apple.com/documentation/combine)
 - [ ] Dependency injection ([Swinject](https://github.com/Swinject/Swinject))
 - [ ] Add tests
 
@@ -111,6 +116,11 @@ Install [`Bundler`](https://bundler.io) for managing Ruby gem dependencies
 Install [Brew](https://github.com/Homebrew/brew) package manager for macOS
 ```sh
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+Install [`Node`](https://nodejs.org/en/) (required to install [Apollo](https://github.com/apollographql/apollo-ios))
+```sh
+brew install node
 ```
 
 The following commands will set up SwiftHub
@@ -149,7 +159,7 @@ Thanks to them for the beautiful open source icons.
 * [MessageKit](https://github.com/MessageKit/MessageKit#apps-using-this-library) - Apps using this library
 * [github-trending-api](https://github.com/huchenme/github-trending-api#projects-using-github-trending-api) - Projects using this library
 * [awesome-rxswift](https://github.com/LeoMobileDeveloper/awesome-rxswift#open-source-apps) - Curated list of RxSwift library and learning material
-* [swift-weekly](http://digest.swiftweekly.com/issues/swift-weekly-issue-156-174508) - Issue #156 Libraries & Code
+* [Medium-Mybridge](https://medium.mybridge.co/swift-open-source-for-the-past-month-v-may-2019-c0f6a0d61e34) - Swift Open Source for the Past Month (v.May 2019)
 
 ## References
 * [CleanArchitectureRxSwift](https://github.com/sergdort/CleanArchitectureRxSwift) - Clean architecture with RxSwift

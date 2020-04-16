@@ -7,16 +7,16 @@
 //
 
 import UIKit
-
-class UserCell: DetailedTableViewCell {
+//用户cell
+class UserCell: DefaultTableViewCell {
 
     lazy var followButton: Button = {
         let view = Button()
         view.borderColor = .white
         view.borderWidth = Configs.BaseDimensions.borderWidth
         view.tintColor = .white
-        //圆角
         view.cornerRadius = 17
+        //重新添加约束
         view.snp.remakeConstraints({ (make) in
             make.size.equalTo(34)
         })
@@ -29,24 +29,15 @@ class UserCell: DetailedTableViewCell {
         stackView.insertArrangedSubview(followButton, at: 2)
     }
 
-    func bind(to viewModel: UserCellViewModel) {
-        viewModel.title.drive(titleLabel.rx.text).disposed(by: rx.disposeBag)
-        viewModel.detail.drive(detailLabel.rx.text).disposed(by: rx.disposeBag)
-        viewModel.secondDetail.drive(secondDetailLabel.rx.attributedText).disposed(by: rx.disposeBag)
-        viewModel.imageUrl.drive(leftImageView.rx.imageURL).disposed(by: rx.disposeBag)
-        //头像点击
-        viewModel.imageUrl.drive(onNext: { [weak self] (url) in
-            if let url = url {
-                self?.leftImageView.hero.id = url.absoluteString
-            }
-        }).disposed(by: rx.disposeBag)
-        viewModel.badge.drive(badgeImageView.rx.image).disposed(by: rx.disposeBag)
-        viewModel.badgeColor.drive(badgeImageView.rx.tintColor).disposed(by: rx.disposeBag)
-        viewModel.hidesFollowButton.drive(followButton.rx.isHidden).disposed(by: rx.disposeBag)
-        viewModel.following.map { (followed) -> UIImage? in
+    override func bind(to viewModel: DefaultTableViewCellViewModel) {
+        super.bind(to: viewModel)
+        guard let viewModel = viewModel as? UserCellViewModel else { return }
+
+        viewModel.hidesFollowButton.asDriver().drive(followButton.rx.isHidden).disposed(by: rx.disposeBag)
+        viewModel.following.asDriver().map { (followed) -> UIImage? in
             let image = followed ? R.image.icon_button_user_x() : R.image.icon_button_user_plus()
             return image?.template
             }.drive(followButton.rx.image()).disposed(by: rx.disposeBag)
-        viewModel.following.map { $0 ? 1.0: 0.6 }.drive(followButton.rx.alpha).disposed(by: rx.disposeBag)
+        viewModel.following.map { $0 ? 1.0: 0.6 }.asDriver(onErrorJustReturn: 0).drive(followButton.rx.alpha).disposed(by: rx.disposeBag)
     }
 }

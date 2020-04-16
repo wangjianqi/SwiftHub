@@ -15,7 +15,7 @@ import Hero
 import AcknowList
 import WhatsNewKit
 import MessageUI
-
+//导航
 protocol Navigatable {
     var navigator: Navigator! { get set }
 }
@@ -67,6 +67,7 @@ class Navigator {
     func get(segue: Scene) -> UIViewController? {
         switch segue {
         case .tabs(let viewModel):
+            //TabBarController
             let rootVC = HomeTabBarController(viewModel: viewModel, navigator: self)
             let detailVC = InitialSplitViewController(viewModel: nil, navigator: self)
             let detailNavVC = NavigationController(rootViewController: detailVC)

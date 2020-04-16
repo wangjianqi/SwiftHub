@@ -16,7 +16,7 @@ public class View: UIView {
             make.width.equalTo(width)
         }
     }
-
+    //高度
     convenience init(height: CGFloat) {
         self.init(frame: CGRect(x: 0, y: 0, width: 0, height: height))
         snp.makeConstraints { (make) in
@@ -49,7 +49,7 @@ public class View: UIView {
 }
 
 extension UIView {
-
+    //内边距
     var inset: CGFloat {
         return Configs.BaseDimensions.inset
     }

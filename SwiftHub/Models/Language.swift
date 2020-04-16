@@ -11,20 +11,6 @@ import ObjectMapper
 
 private let languageKey = "CurrentLanguageKey"
 
-struct Languages: Mappable {
-
-    var popular: [Language]?
-    var all: [Language]?
-
-    init?(map: Map) {}
-    init() {}
-
-    mutating func mapping(map: Map) {
-        popular <- map["popular"]
-        all <- map["all"]
-    }
-}
-
 struct Language: Mappable {
 
     var urlParam: String?
@@ -69,5 +55,34 @@ extension Language {
 extension Language: Equatable {
     static func == (lhs: Language, rhs: Language) -> Bool {
         return lhs.urlParam == rhs.urlParam
+    }
+}
+
+struct Languages {
+
+    var totalCount: Int = 0
+    var totalSize: Int = 0
+    var languages: [RepoLanguage] = []
+
+    init(graph: RepositoryQuery.Data.Repository.Language?) {
+        totalCount = graph?.totalCount ?? 0
+        totalSize = graph?.totalSize ?? 0
+        languages = (graph?.edges?.map { RepoLanguage(graph: $0) } ?? [])
+        languages.sort { (lhs, rhs) -> Bool in
+            lhs.size > rhs.size
+        }
+    }
+}
+
+struct RepoLanguage {
+
+    var size: Int = 0
+    var name: String?
+    var color: String?
+
+    init(graph: RepositoryQuery.Data.Repository.Language.Edge?) {
+        size = graph?.size ?? 0
+        name = graph?.node.name
+        color = graph?.node.color
     }
 }
