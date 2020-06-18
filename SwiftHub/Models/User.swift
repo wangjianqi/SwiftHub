@@ -13,7 +13,6 @@ import KeychainAccess
 import MessageKit
 
 private let userKey = "CurrentUserKey"
-///钥匙串
 private let keychain = Keychain(service: Configs.App.bundleIdentifier)
 
 enum UserType: String {
@@ -21,7 +20,36 @@ enum UserType: String {
     case organization = "Organization"
 }
 
-/// User model  //ObjectMapper MessageKit
+struct ContributionCalendar {
+    var totalContributions: Int?
+    var months: [Month]?
+    var weeks: [[ContributionDay]]?
+
+    init(graph: ViewerQuery.Data.Viewer.ContributionsCollection?) {
+        let calendar = graph?.contributionCalendar
+        totalContributions = calendar?.totalContributions
+        months = calendar?.months.map { Month(name: $0.name) }
+        weeks = calendar?.weeks.map { $0.contributionDays.map { ContributionDay(color: $0.color, contributionCount: $0.contributionCount) } }
+    }
+
+    init(graph: UserQuery.Data.User.ContributionsCollection?) {
+        let calendar = graph?.contributionCalendar
+        totalContributions = calendar?.totalContributions
+        months = calendar?.months.map { Month(name: $0.name) }
+        weeks = calendar?.weeks.map { $0.contributionDays.map { ContributionDay(color: $0.color, contributionCount: $0.contributionCount) } }
+    }
+
+    struct Month {
+        var name: String?
+    }
+
+    struct ContributionDay {
+        var color: String?
+        var contributionCount: Int?
+    }
+}
+
+/// User model
 struct User: Mappable, SenderType {
 
     var avatarUrl: String?  // A URL pointing to the user's public avatar.
@@ -47,6 +75,7 @@ struct User: Mappable, SenderType {
     var isViewer: Bool?  // Whether or not this user is the viewing user.
     var pinnedRepositories: [Repository]?  // A list of repositories this user has pinned to their profile
     var organizations: [User]?  // A list of organizations the user belongs to.
+    var contributionCalendar: ContributionCalendar? // A calendar of this user's contributions on GitHub.
 
     // Only for Organization type
     var descriptionField: String?
@@ -78,7 +107,6 @@ struct User: Mappable, SenderType {
         }
     }
 
-    ///ObjectMapper
     mutating func mapping(map: Map) {
         avatarUrl <- map["avatar_url"]
         blog <- map["blog"]
@@ -119,8 +147,9 @@ extension User {
         repositoriesCount = graph?.repositories.totalCount
         issuesCount = graph?.issues.totalCount
         watchingCount = graph?.watching.totalCount
-        pinnedRepositories = graph?.pinnedRepositories.nodes?.map { Repository(graph: $0) }
+        pinnedRepositories = graph?.pinnedItems.nodes?.map { Repository(graph: $0?.asRepository) }
         organizations = graph?.organizations.nodes?.map { User(graph: $0) }
+        contributionCalendar = ContributionCalendar(graph: graph?.contributionsCollection)
     }
 
     init(graph: UserQuery.Data.User?) {
@@ -140,8 +169,9 @@ extension User {
         repositoriesCount = graph?.repositories.totalCount
         issuesCount = graph?.issues.totalCount
         watchingCount = graph?.watching.totalCount
-        pinnedRepositories = graph?.pinnedRepositories.nodes?.map { Repository(graph: $0) }
+        pinnedRepositories = graph?.pinnedItems.nodes?.map { Repository(graph: $0?.asRepository) }
         organizations = graph?.organizations.nodes?.map { User(graph: $0) }
+        contributionCalendar = ContributionCalendar(graph: graph?.contributionsCollection)
     }
 
     init(graph: SearchUsersQuery.Data.Search.Node.AsUser?) {
@@ -174,7 +204,6 @@ extension User {
     }
 
     func save() {
-        //转JSONString
         if let json = self.toJSONString() {
             keychain[userKey] = json
         } else {
@@ -182,9 +211,7 @@ extension User {
         }
     }
 
-    //获取用户
     static func currentUser() -> User? {
-        //转Model
         if let json = keychain[userKey], let user = User(JSONString: json) {
             return user
         }
@@ -192,7 +219,6 @@ extension User {
     }
 
     static func removeCurrentUser() {
-        //删除钥匙串内容
         keychain[userKey] = nil
     }
 }
@@ -241,7 +267,6 @@ enum TrendingUserType: String {
 }
 
 /// TrendingUser model
-//用户
 struct TrendingUser: Mappable {
 
     var username: String?

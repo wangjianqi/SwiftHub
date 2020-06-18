@@ -16,10 +16,11 @@ class GraphApi: SwiftHubAPI {
     let restApi: RestApi
     let token: String
 
-    private lazy var networkTransport = HTTPNetworkTransport(
-        url: "https://api.github.com/graphql".url!,
-        delegate: self
-    )
+    private lazy var networkTransport: HTTPNetworkTransport = {
+      let transport = HTTPNetworkTransport(url: URL(string: "https://api.github.com/graphql")!)
+      transport.delegate = self
+      return transport
+    }()
 
     private(set) lazy var client = ApolloClient(networkTransport: self.networkTransport)
 
@@ -252,6 +253,11 @@ extension GraphApi {
 
     func languages() -> Single<[Language]> {
         return restApi.languages()
+    }
+
+    // MARK: - Codetabs
+    func numberOfLines(fullname: String) -> Single<[LanguageLines]> {
+        return restApi.numberOfLines(fullname: fullname)
     }
 }
 

@@ -66,6 +66,15 @@
 		0732046721413B6400C1E39F /* EventCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732046621413B6400C1E39F /* EventCellViewModel.swift */; };
 		0732046A21419DB200C1E39F /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732046921419DB200C1E39F /* ISO8601DateTransform.swift */; };
 		073A1F792233F2F000D6F487 /* Search.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 073A1F782233F2F000D6F487 /* Search.graphql */; };
+		074DBBEA24489E750062B35F /* CodetabsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074DBBE924489E750062B35F /* CodetabsApi.swift */; };
+		074DBBEE2448A0480062B35F /* RepositoryNumberOfLines.json in Resources */ = {isa = PBXBuildFile; fileRef = 074DBBED2448A0480062B35F /* RepositoryNumberOfLines.json */; };
+		074DBBF12448AF0E0062B35F /* LinesCountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074DBBF02448AF0E0062B35F /* LinesCountViewModel.swift */; };
+		074DBBF32448AF220062B35F /* LinesCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074DBBF22448AF220062B35F /* LinesCountViewController.swift */; };
+		0751F7A2246B025700E42751 /* ContributionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751F7A1246B025700E42751 /* ContributionsView.swift */; };
+		0751F7A5246B03C400E42751 /* ContributionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751F7A3246B03C400E42751 /* ContributionsCell.swift */; };
+		0751F7A6246B03C400E42751 /* ContributionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0751F7A4246B03C400E42751 /* ContributionsCell.xib */; };
+		0751F7A8246B03DE00E42751 /* ContributionsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751F7A7246B03DE00E42751 /* ContributionsCellViewModel.swift */; };
+		0751F7AA246B044800E42751 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751F7A9246B044800E42751 /* TableViewCellViewModel.swift */; };
 		0752F48821C8D9A800A30BF2 /* TrendingRepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752F48621C8D9A800A30BF2 /* TrendingRepositoryCell.swift */; };
 		0752F48921C8D9A800A30BF2 /* TrendingRepositoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0752F48721C8D9A800A30BF2 /* TrendingRepositoryCell.xib */; };
 		0752F48C21C8D9BA00A30BF2 /* TrendingUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752F48A21C8D9BA00A30BF2 /* TrendingUserCell.swift */; };
@@ -153,7 +162,6 @@
 		07E1B30621A44D9D00F6EAE3 /* IssueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B30521A44D9D00F6EAE3 /* IssueCellViewModel.swift */; };
 		07E1B30821A44DB300F6EAE3 /* IssuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B30721A44DB300F6EAE3 /* IssuesViewController.swift */; };
 		07E1B30A21A4538B00F6EAE3 /* RepositoryIssues.json in Resources */ = {isa = PBXBuildFile; fileRef = 07E1B30921A4538B00F6EAE3 /* RepositoryIssues.json */; };
-		07F9E4622234010C0012BA6D /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 07F9E4612234010C0012BA6D /* schema.json */; };
 		07F9E464223401F30012BA6D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9E463223401F30012BA6D /* API.swift */; };
 		07F9E467223405410012BA6D /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9E466223405410012BA6D /* RestApi.swift */; };
 		07F9E469223406270012BA6D /* GraphApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9E468223406270012BA6D /* GraphApi.swift */; };
@@ -360,6 +368,15 @@
 		0732046621413B6400C1E39F /* EventCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellViewModel.swift; sourceTree = "<group>"; };
 		0732046921419DB200C1E39F /* ISO8601DateTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO8601DateTransform.swift; sourceTree = "<group>"; };
 		073A1F782233F2F000D6F487 /* Search.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Search.graphql; sourceTree = "<group>"; };
+		074DBBE924489E750062B35F /* CodetabsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodetabsApi.swift; sourceTree = "<group>"; };
+		074DBBED2448A0480062B35F /* RepositoryNumberOfLines.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RepositoryNumberOfLines.json; sourceTree = "<group>"; };
+		074DBBF02448AF0E0062B35F /* LinesCountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinesCountViewModel.swift; sourceTree = "<group>"; };
+		074DBBF22448AF220062B35F /* LinesCountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinesCountViewController.swift; sourceTree = "<group>"; };
+		0751F7A1246B025700E42751 /* ContributionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsView.swift; sourceTree = "<group>"; };
+		0751F7A3246B03C400E42751 /* ContributionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsCell.swift; sourceTree = "<group>"; };
+		0751F7A4246B03C400E42751 /* ContributionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContributionsCell.xib; sourceTree = "<group>"; };
+		0751F7A7246B03DE00E42751 /* ContributionsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsCellViewModel.swift; sourceTree = "<group>"; };
+		0751F7A9246B044800E42751 /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
 		0752F48621C8D9A800A30BF2 /* TrendingRepositoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingRepositoryCell.swift; sourceTree = "<group>"; };
 		0752F48721C8D9A800A30BF2 /* TrendingRepositoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrendingRepositoryCell.xib; sourceTree = "<group>"; };
 		0752F48A21C8D9BA00A30BF2 /* TrendingUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingUserCell.swift; sourceTree = "<group>"; };
@@ -674,6 +691,10 @@
 		070FF83A20F2204A0070F5E8 /* User Details */ = {
 			isa = PBXGroup;
 			children = (
+				0751F7A3246B03C400E42751 /* ContributionsCell.swift */,
+				0751F7A4246B03C400E42751 /* ContributionsCell.xib */,
+				0751F7A7246B03DE00E42751 /* ContributionsCellViewModel.swift */,
+				0751F7A1246B025700E42751 /* ContributionsView.swift */,
 				07B183812172268C007CC23B /* UserDetailCell.swift */,
 				07B183822172268C007CC23B /* UserDetailCell.xib */,
 				07B183852172269C007CC23B /* UserDetailCellViewModel.swift */,
@@ -750,6 +771,15 @@
 				0732045F2141399400C1E39F /* EventsViewModel.swift */,
 			);
 			path = Events;
+			sourceTree = "<group>";
+		};
+		074DBBEF2448AEBF0062B35F /* Lines Count */ = {
+			isa = PBXGroup;
+			children = (
+				074DBBF22448AF220062B35F /* LinesCountViewController.swift */,
+				074DBBF02448AF0E0062B35F /* LinesCountViewModel.swift */,
+			);
+			path = "Lines Count";
 			sourceTree = "<group>";
 		};
 		0752F49221C8E61E00A30BF2 /* Languages */ = {
@@ -887,12 +917,13 @@
 		07F9E465223404FF0012BA6D /* Rest */ = {
 			isa = PBXGroup;
 			children = (
-				A09DE8A820E7A98F00F6F2BF /* Stubbed Responses */,
-				07F9E466223405410012BA6D /* RestApi.swift */,
-				C762C68B1E1D5D6E00C09EBD /* GitHubAPI.swift */,
-				0700EAED21C815E600F979A7 /* TrendingGithubAPI.swift */,
-				C762C68C1E1D5D6E00C09EBD /* Networking.swift */,
+				074DBBE924489E750062B35F /* CodetabsApi.swift */,
 				079BF51621FF618500FFA334 /* ErrorResponse.swift */,
+				C762C68B1E1D5D6E00C09EBD /* GitHubAPI.swift */,
+				C762C68C1E1D5D6E00C09EBD /* Networking.swift */,
+				07F9E466223405410012BA6D /* RestApi.swift */,
+				A09DE8A820E7A98F00F6F2BF /* Stubbed Responses */,
+				0700EAED21C815E600F979A7 /* TrendingGithubAPI.swift */,
 			);
 			path = Rest;
 			sourceTree = "<group>";
@@ -955,6 +986,7 @@
 				07AD154A227F3D4400FC8109 /* Issue Details */,
 				07E1B2FE21A44D1700F6EAE3 /* Issues */,
 				0752F49221C8E61E00A30BF2 /* Languages */,
+				074DBBEF2448AEBF0062B35F /* Lines Count */,
 				A0ED264620F76A45004E8137 /* Login */,
 				07FC33751FFFD47600D53888 /* Main */,
 				A034AF7121528087004C310B /* Notifications */,
@@ -1136,6 +1168,7 @@
 				075A55D0228850A5004DF9F7 /* RepositoryIssue.json */,
 				07AD1548227F3B0800FC8109 /* RepositoryIssueComments.json */,
 				07E1B30921A4538B00F6EAE3 /* RepositoryIssues.json */,
+				074DBBED2448A0480062B35F /* RepositoryNumberOfLines.json */,
 				07241D0E21B1745D00F800BD /* RepositoryPullRequest.json */,
 				075A55CE228845F8004DF9F7 /* RepositoryPullRequestComments.json */,
 				07241D0C21B1744900F800BD /* RepositoryPullRequests.json */,
@@ -1204,6 +1237,7 @@
 				A09DE8CB20E7BEBD00F6F2BF /* DefaultTableViewCell.swift */,
 				0722DB1B22BF779F00C32A01 /* DefaultTableViewCellViewModel.swift */,
 				C762C65A1E1D559000C09EBD /* TableViewCell.swift */,
+				0751F7A9246B044800E42751 /* TableViewCellViewModel.swift */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -1480,13 +1514,13 @@
 					};
 					A09499651E1D1CB700EFDE29 = {
 						CreatedOnToolsVersion = 8.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						TestTargetID = A09499511E1D1CB600EFDE29;
 					};
 					A09499701E1D1CB700EFDE29 = {
 						CreatedOnToolsVersion = 8.2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						TestTargetID = A09499511E1D1CB600EFDE29;
 					};
@@ -1532,6 +1566,7 @@
 				07B4AB652190C56E001E9337 /* RepositoryDetailCell.xib in Resources */,
 				A0E2B0932108AFF0000DA282 /* RepositoryWatchers.json in Resources */,
 				072BD79A225FD50400E6C580 /* RepositoryRelease.json in Resources */,
+				074DBBEE2448A0480062B35F /* RepositoryNumberOfLines.json in Resources */,
 				A07DB584223FC02E000E3312 /* User.graphql in Resources */,
 				07241D1921B1768E00F800BD /* CommitCell.xib in Resources */,
 				073A1F792233F2F000D6F487 /* Search.graphql in Resources */,
@@ -1547,6 +1582,7 @@
 				A09DE8C720E7B84D00F6F2BF /* UserCell.xib in Resources */,
 				07E1B30421A44D8D00F6EAE3 /* IssueCell.xib in Resources */,
 				0757B53421669DAC00C04163 /* LanguageCell.xib in Resources */,
+				0751F7A6246B03C400E42751 /* ContributionsCell.xib in Resources */,
 				0791946D214D4F0700A7067E /* ThemeCell.xib in Resources */,
 				0795E5CF225920E2008EFD50 /* BranchCell.xib in Resources */,
 				0732045B214137B800C1E39F /* EventsUserPerformed.json in Resources */,
@@ -1556,7 +1592,6 @@
 				072BD7A3225FD6FD00E6C580 /* ReleaseCell.xib in Resources */,
 				A0E2B0952108B00D000DA282 /* RepositoryStargazers.json in Resources */,
 				07241D0921B1742700F800BD /* RepositoryBranches.json in Resources */,
-				07F9E4622234010C0012BA6D /* schema.json in Resources */,
 				A0CE88B621C28D9200C4C0E5 /* EmptyArray.json in Resources */,
 				A0E2B07C2101FCF4000DA282 /* UserFollowing.json in Resources */,
 				A07DC85021EDF6E100AA7951 /* ContactCell.xib in Resources */,
@@ -1643,6 +1678,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 				"${BUILT_PRODUCTS_DIR}/BonMot/BonMot.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
@@ -1662,13 +1698,14 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
+				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-ObjectMapper/Moya_ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/MultiProgressView/MultiProgressView.framework",
 				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/RAMAnimatedTabBarController/RAMAnimatedTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -1684,7 +1721,6 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
-				"${BUILT_PRODUCTS_DIR}/Umbrella/Umbrella.framework",
 				"${BUILT_PRODUCTS_DIR}/WhatsNewKit/WhatsNewKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -1694,6 +1730,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BonMot.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
@@ -1720,6 +1757,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAMAnimatedTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -1735,7 +1773,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwifterSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Umbrella.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WhatsNewKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -1752,6 +1789,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SwiftHubTests/Pods-SwiftHubTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
@@ -1762,6 +1800,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
@@ -1791,7 +1830,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 37c93eb6b84ba3eec1d049949625a131b88c50e9 e78a1123b34d3307be55fc9565c8ea1ff601801ec3cd70679b70983042f95d33\n";
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		C762C6201E1D40D500C09EBD /* R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1914,6 +1953,7 @@
 				0700EAF021C823CD00F979A7 /* Language.swift in Sources */,
 				C762C6841E1D5A7300C09EBD /* UIImage+SwiftHub.swift in Sources */,
 				C762C66C1E1D559000C09EBD /* View.swift in Sources */,
+				0751F7AA246B044800E42751 /* TableViewCellViewModel.swift in Sources */,
 				0700EAEE21C815E600F979A7 /* TrendingGithubAPI.swift in Sources */,
 				C762C6621E1D559000C09EBD /* CollectionViewCell.swift in Sources */,
 				07919469214D4EEC00A7067E /* ThemeCellViewModel.swift in Sources */,
@@ -1954,9 +1994,11 @@
 				072BD7A2225FD6FD00E6C580 /* ReleaseCell.swift in Sources */,
 				0795E5D1225920FA008EFD50 /* BranchCellViewModel.swift in Sources */,
 				A09499561E1D1CB600EFDE29 /* AppDelegate.swift in Sources */,
+				0751F7A2246B025700E42751 /* ContributionsView.swift in Sources */,
 				C762C6681E1D559000C09EBD /* TableView.swift in Sources */,
 				07B8BC7322EB526B008AA2DF /* LanguageView.swift in Sources */,
 				07CE0F8021027DEC00E1F6BD /* ThemeManager.swift in Sources */,
+				0751F7A8246B03DE00E42751 /* ContributionsCellViewModel.swift in Sources */,
 				070FF84520F284D40070F5E8 /* SettingsViewController.swift in Sources */,
 				07FC336E1FFFCB8B00D53888 /* Application.swift in Sources */,
 				070E177A21AC7C85004B6FB2 /* Release.swift in Sources */,
@@ -1970,9 +2012,11 @@
 				07DA1C0522EB14B200327AF2 /* LanguagesCellViewModel.swift in Sources */,
 				0732045E2141398400C1E39F /* EventsViewController.swift in Sources */,
 				A0E2B0762101F77C000DA282 /* UsersViewController.swift in Sources */,
+				0751F7A5246B03C400E42751 /* ContributionsCell.swift in Sources */,
 				C762C6941E1D5D6E00C09EBD /* Reachability.swift in Sources */,
 				A034AF7B21528108004C310B /* NotificationCellViewModel.swift in Sources */,
 				0716602121CFB1E000B5827C /* SourceViewModel.swift in Sources */,
+				074DBBEA24489E750062B35F /* CodetabsApi.swift in Sources */,
 				07F9E464223401F30012BA6D /* API.swift in Sources */,
 				07FC337D1FFFE4E300D53888 /* AnalyticsManager.swift in Sources */,
 				0752F48C21C8D9BA00A30BF2 /* TrendingUserCell.swift in Sources */,
@@ -2023,6 +2067,7 @@
 				07D46E5321920029008E5369 /* Content.swift in Sources */,
 				A088B12921008FDF0093D248 /* WebViewController.swift in Sources */,
 				A09DE8DD20E7C82E00F6F2BF /* SearchBar.swift in Sources */,
+				074DBBF32448AF220062B35F /* LinesCountViewController.swift in Sources */,
 				07E1B30621A44D9D00F6EAE3 /* IssueCellViewModel.swift in Sources */,
 				A0E2B08A210625D5000DA282 /* SettingSwitchCellViewModel.swift in Sources */,
 				A09DE8D020E7C05C00F6F2BF /* Kingfisher+Rx.swift in Sources */,
@@ -2039,6 +2084,7 @@
 				C762C6831E1D5A7300C09EBD /* UIFont+SwiftHub.swift in Sources */,
 				07B4AB642190C56E001E9337 /* RepositoryDetailCell.swift in Sources */,
 				075A55CB228843BC004DF9F7 /* PullRequestCommentsViewController.swift in Sources */,
+				074DBBF12448AF0E0062B35F /* LinesCountViewModel.swift in Sources */,
 				A0E2B0782101F789000DA282 /* UsersViewModel.swift in Sources */,
 				07E1B2F321A4349500F6EAE3 /* Issue.swift in Sources */,
 				0752F49C21C8E68D00A30BF2 /* RepoLanguageCellViewModel.swift in Sources */,
@@ -2252,7 +2298,7 @@
 			baseConfigurationReference = 7B5E2602E2BB58EBC51F39D8 /* Pods-SwiftHub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 29;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = RE853S4FBU;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -2271,7 +2317,7 @@
 			baseConfigurationReference = 7DCE0F2B67EC0E2BD4A13391 /* Pods-SwiftHub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = RE853S4FBU;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SwiftHub/Info.plist;
@@ -2293,7 +2339,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.public.SwiftHubTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftHub.app/SwiftHub";
 			};
 			name = Debug;
@@ -2307,7 +2353,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.public.SwiftHubTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftHub.app/SwiftHub";
 			};
 			name = Release;
@@ -2320,7 +2366,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.public.SwiftHubUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = SwiftHub;
 			};
 			name = Debug;
@@ -2333,7 +2379,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.public.SwiftHubUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = SwiftHub;
 			};
 			name = Release;

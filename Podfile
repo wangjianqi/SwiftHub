@@ -5,12 +5,11 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'SwiftHub' do
-    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
     # Pods for SwiftHub
 
     # Networking
-    pod 'Moya/RxSwift', '14.0.0-beta.2'  # https://github.com/Moya/Moya
-    pod 'Apollo', '0.19.0'  # https://github.com/apollographql/apollo-ios
+    pod 'Moya/RxSwift'  # https://github.com/Moya/Moya
+    pod 'Apollo', '0.28.0'  # https://github.com/apollographql/apollo-ios
 
     # Rx Extensions
     pod 'RxDataSources', '~> 4.0'  # https://github.com/RxSwiftCommunity/RxDataSources
@@ -20,35 +19,29 @@ target 'SwiftHub' do
     pod 'RxGesture', '~> 3.0'  # https://github.com/RxSwiftCommunity/RxGesture
     pod 'RxOptional', '~> 4.0'  # https://github.com/RxSwiftCommunity/RxOptional
     pod 'RxTheme', '~> 4.0'  # https://github.com/RxSwiftCommunity/RxTheme
-    #pod 'RxAnimated', '~> 0.4'  # https://github.com/RxSwiftCommunity/RxAnimated
-
+ 
     # JSON Mapping
-    #pod 'ObjectMapper', :git => 'https://github.com/kajensen/ObjectMapper.git'  # https://github.com/Hearst-DD/ObjectMapper
-    pod 'Moya-ObjectMapper/RxSwift', :git => 'https://github.com/khoren93/Moya-ObjectMapper.git', :branch => 'moya14'  # https://github.com/ivanbruel/Moya-ObjectMapper
+    pod 'Moya-ObjectMapper/RxSwift', '~> 2.0'  # https://github.com/ivanbruel/Moya-ObjectMapper
 
     # Image
     pod 'Kingfisher', '~> 5.0'  # https://github.com/onevcat/Kingfisher
 
     # Date
-    pod 'DateToolsSwift', '~> 4.0'  # https://github.com/MatthewYork/DateTools
+    pod 'DateToolsSwift', '~> 5.0'  # https://github.com/MatthewYork/DateTools
     pod 'SwiftDate', '~> 6.0'  # https://github.com/malcommac/SwiftDate
 
     # Tools
     pod 'R.swift', '~> 5.0'  # https://github.com/mac-cain13/R.swift
-    pod 'SwiftLint', '0.37.0'  # https://github.com/realm/SwiftLint
+    pod 'SwiftLint', '0.39.2'  # https://github.com/realm/SwiftLint
 
     # Keychain
     pod 'KeychainAccess', '~> 4.0'  # https://github.com/kishikawakatsumi/KeychainAccess
-
-    # Fabric
-    pod 'Fabric'
-    pod 'Crashlytics'
 
     # UI
     pod 'NVActivityIndicatorView', '~> 4.0'  # https://github.com/ninjaprox/NVActivityIndicatorView
     pod 'ImageSlideshow/Kingfisher', '~> 1.8'  # https://github.com/zvonicek/ImageSlideshow
     pod 'DZNEmptyDataSet', '~> 1.0'  # https://github.com/dzenbot/DZNEmptyDataSet
-    pod 'Hero', '~> 1.5.0'  # https://github.com/lkzhao/Hero
+    pod 'Hero', :git => 'https://github.com/HeroTransitions/Hero.git', :branch => 'develop'  # https://github.com/lkzhao/Hero
     pod 'Localize-Swift', '~> 3.0'  # https://github.com/marmelroy/Localize-Swift
     pod 'RAMAnimatedTabBarController', '~> 5.0'  # https://github.com/Ramotion/animated-tab-bar
     pod 'AcknowList', '~> 1.8'  # https://github.com/vtourraine/AcknowList
@@ -61,7 +54,8 @@ target 'SwiftHub' do
     pod 'FloatingPanel', '~> 1.0'  # https://github.com/SCENEE/FloatingPanel
     pod 'MessageKit', '~> 3.0'  # https://github.com/MessageKit/MessageKit
     pod 'MultiProgressView', '~> 1.0'  # https://github.com/mac-gallagher/MultiProgressView
-
+    pod 'Charts', '~> 3.0'  # https://github.com/danielgindi/Charts
+    
     # Keyboard
     pod 'IQKeyboardManagerSwift', '~> 6.0'  # https://github.com/hackiftekhar/IQKeyboardManager
 
@@ -69,7 +63,7 @@ target 'SwiftHub' do
     pod 'SnapKit', '~> 5.0'  # https://github.com/SnapKit/SnapKit
 
     # Code Quality
-    pod 'FLEX', :git => 'https://github.com/khoren93/FLEX.git', :branch => 'remove_private_api'  # https://github.com/Flipboard/FLEX
+    pod 'FLEX', '~> 4.0', :configurations => ['Debug']  # https://github.com/Flipboard/FLEX
     pod 'SwifterSwift', '~> 5.0'  # https://github.com/SwifterSwift/SwifterSwift
     pod 'BonMot', '~> 5.0'  # https://github.com/Rightpoint/BonMot
 
@@ -77,22 +71,19 @@ target 'SwiftHub' do
     pod 'CocoaLumberjack/Swift', '~> 3.0'  # https://github.com/CocoaLumberjack/CocoaLumberjack
 
     # Analytics
-    # https://github.com/devxoul/Umbrella
-    pod 'Umbrella/Mixpanel', '~> 0.8'
-    pod 'Umbrella/Firebase'
-    pod 'Mixpanel', '~> 3.0'  # https://github.com/mixpanel/mixpanel-iphone
+    pod 'Mixpanel-swift', '~> 2.0'  # https://github.com/mixpanel/mixpanel-iphone
     pod 'Firebase/Analytics'
+    pod 'Firebase/Crashlytics'
 
     # Ads
     pod 'Firebase/AdMob'
-    pod 'Google-Mobile-Ads-SDK', '7.52.0'
+    pod 'Google-Mobile-Ads-SDK', '~> 7.0'
     
     target 'SwiftHubTests' do
         inherit! :search_paths
         # Pods for testing
         pod 'Quick', '~> 2.0'  # https://github.com/Quick/Quick
         pod 'Nimble', '~> 8.0'  # https://github.com/Quick/Nimble
-        #pod 'RxNimble', '~> 4.0'  # https://github.com/RxSwiftCommunity/RxNimble
         pod 'RxAtomic', :modular_headers => true
         pod 'RxBlocking'  # https://github.com/ReactiveX/RxSwift
         pod 'Firebase'

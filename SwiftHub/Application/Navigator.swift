@@ -15,7 +15,7 @@ import Hero
 import AcknowList
 import WhatsNewKit
 import MessageUI
-//导航
+
 protocol Navigatable {
     var navigator: Navigator! { get set }
 }
@@ -43,6 +43,7 @@ class Navigator {
         case notifications(viewModel: NotificationsViewModel)
         case issues(viewModel: IssuesViewModel)
         case issueDetails(viewModel: IssueViewModel)
+        case linesCount(viewModel: LinesCountViewModel)
         case theme(viewModel: ThemeViewModel)
         case language(viewModel: LanguageViewModel)
         case acknowledgements
@@ -67,7 +68,6 @@ class Navigator {
     func get(segue: Scene) -> UIViewController? {
         switch segue {
         case .tabs(let viewModel):
-            //TabBarController
             let rootVC = HomeTabBarController(viewModel: viewModel, navigator: self)
             let detailVC = InitialSplitViewController(viewModel: nil, navigator: self)
             let detailNavVC = NavigationController(rootViewController: detailVC)
@@ -92,10 +92,9 @@ class Navigator {
         case .notifications(let viewModel): return NotificationsViewController(viewModel: viewModel, navigator: self)
         case .issues(let viewModel): return IssuesViewController(viewModel: viewModel, navigator: self)
         case .issueDetails(let viewModel): return IssueViewController(viewModel: viewModel, navigator: self)
-            //颜色主题
+        case .linesCount(let viewModel): return LinesCountViewController(viewModel: viewModel, navigator: self)
         case .theme(let viewModel): return ThemeViewController(viewModel: viewModel, navigator: self)
         case .language(let viewModel): return LanguageViewController(viewModel: viewModel, navigator: self)
-            //致谢（自动生成的）
         case .acknowledgements: return AcknowListViewController()
         case .contacts(let viewModel): return ContactsViewController(viewModel: viewModel, navigator: self)
 
@@ -129,15 +128,12 @@ class Navigator {
         }
     }
 
-    //返回上个页面
     func dismiss(sender: UIViewController?) {
         sender?.navigationController?.dismiss(animated: true, completion: nil)
     }
 
     // MARK: - invoke a single segue
-    //调用
     func show(segue: Scene, sender: UIViewController?, transition: Transition = .navigation(type: .cover(direction: .left))) {
-        //获取控制器
         if let target = get(segue: segue) {
             show(target: target, sender: sender, transition: transition)
         }
@@ -153,12 +149,11 @@ class Navigator {
         case .custom: return
         default: break
         }
-        //控制器
+
         guard let sender = sender else {
             fatalError("You need to pass in a sender for .navigation or .modal transitions")
         }
 
-        //如果是导航控制器
         if let nav = sender as? UINavigationController {
             //push root controller on navigation stack
             nav.pushViewController(target, animated: false)
@@ -181,7 +176,6 @@ class Navigator {
             }
         case .modal:
             // present modally
-            //模态
             DispatchQueue.main.async {
                 let nav = NavigationController(rootViewController: target)
                 sender.present(nav, animated: true, completion: nil)
@@ -189,7 +183,6 @@ class Navigator {
         case .detail:
             DispatchQueue.main.async {
                 let nav = NavigationController(rootViewController: target)
-                ///跳转详情
                 sender.showDetailViewController(nav, sender: nil)
             }
         case .alert:

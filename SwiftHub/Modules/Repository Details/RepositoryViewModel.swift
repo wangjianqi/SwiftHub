@@ -88,9 +88,12 @@ class RepositoryViewModel: ViewModel, ViewModelType {
                 .share()
             }
 
-        starred.subscribe(onNext: { (event) in
+        starred.subscribe(onNext: { [weak self] (event) in
             switch event {
-            case .next: logDebug("Starred success")
+            case .next:
+                let fullname = self?.repository.value.fullname ?? ""
+                analytics.log(.repositoryStar(fullname: fullname))
+                logDebug("Starred success")
             case .error(let error): logError("\(error.localizedDescription)")
             case .completed: break
             }
@@ -290,6 +293,13 @@ class RepositoryViewModel: ViewModel, ViewModelType {
                                                                          hidesDisclosure: false)
             items.append(RepositorySectionItem.starHistoryItem(viewModel: starHistoryCellViewModel))
 
+            // Count lines of code
+            let clocCellViewModel = RepositoryDetailCellViewModel(with: R.string.localizable.repositoryCountLinesOfCodeCellTitle.key.localized(),
+                                                                  detail: "",
+                                                                  image: R.image.icon_cell_cloc()?.template,
+                                                                  hidesDisclosure: false)
+            items.append(RepositorySectionItem.countLinesOfCodeItem(viewModel: clocCellViewModel))
+
             return [
                 RepositorySection.repository(title: "", items: items)
             ]
@@ -360,6 +370,10 @@ class RepositoryViewModel: ViewModel, ViewModelType {
         case .sourceItem:
             let ref = repository.value.defaultBranch
             let viewModel = ContentsViewModel(repository: repository.value, content: nil, ref: ref, provider: provider)
+            return viewModel
+
+        case .countLinesOfCodeItem:
+            let viewModel = LinesCountViewModel(repository: repository.value, provider: provider)
             return viewModel
 
         default: return nil

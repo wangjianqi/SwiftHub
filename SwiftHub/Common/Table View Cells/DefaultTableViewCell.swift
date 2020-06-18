@@ -13,6 +13,7 @@ class DefaultTableViewCell: TableViewCell {
     lazy var leftImageView: ImageView = {
         let view = ImageView(frame: CGRect())
         view.contentMode = .scaleAspectFit
+        view.cornerRadius = 25
         view.snp.makeConstraints({ (make) in
             make.size.equalTo(50)
         })
@@ -94,7 +95,10 @@ class DefaultTableViewCell: TableViewCell {
         })
     }
 
-    func bind(to viewModel: DefaultTableViewCellViewModel) {
+    override func bind(to viewModel: TableViewCellViewModel) {
+        super.bind(to: viewModel)
+        guard let viewModel = viewModel as? DefaultTableViewCellViewModel else { return }
+
         viewModel.title.asDriver().drive(titleLabel.rx.text).disposed(by: rx.disposeBag)
         //replaceNilWith
         viewModel.title.asDriver().replaceNilWith("").map { $0.isEmpty }.drive(titleLabel.rx.isHidden).disposed(by: rx.disposeBag)

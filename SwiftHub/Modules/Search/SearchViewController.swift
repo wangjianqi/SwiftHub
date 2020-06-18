@@ -57,7 +57,7 @@ enum SearchModeSegments: Int {
         }
     }
 }
-//为何不用String: 因为需要使用的是索引
+
 enum SortRepositoryItems: Int {
     case bestMatch, mostStars, fewestStars, mostForks, fewestForks, recentlyUpdated, lastRecentlyUpdated
 
@@ -139,32 +139,33 @@ class SearchViewController: TableViewController {
         let view = BarButtonItem(image: R.image.icon_navigation_language(), style: .done, target: nil, action: nil)
         return view
     }()
-    //segment
+
     lazy var segmentedControl: SegmentedControl = {
-        let items = [SearchTypeSegments.repositories.title, SearchTypeSegments.users.title]
+        let titles = [SearchTypeSegments.repositories.title, SearchTypeSegments.users.title]
         let images = [R.image.icon_cell_badge_repository()!, R.image.icon_cell_badge_user()!]
         let selectedImages = [R.image.icon_cell_badge_repository()!, R.image.icon_cell_badge_user()!]
-        let view = SegmentedControl(sectionImages: images, sectionSelectedImages: selectedImages)
+        let view = SegmentedControl(sectionImages: images, sectionSelectedImages: selectedImages, titlesForSections: titles)
         view.selectedSegmentIndex = 0
         view.snp.makeConstraints({ (make) in
-            make.width.equalTo(200)
+            make.width.equalTo(220)
         })
         return view
     }()
-    //趋势view
+
     let trendingPeriodView = View()
-    //周期
     lazy var trendingPeriodSegmentedControl: SegmentedControl = {
         let items = [TrendingPeriodSegments.daily.title, TrendingPeriodSegments.weekly.title, TrendingPeriodSegments.montly.title]
         let view = SegmentedControl(sectionTitles: items)
         view.selectedSegmentIndex = 0
         return view
     }()
-    //搜索框
+
     let searchModeView = View()
     lazy var searchModeSegmentedControl: SegmentedControl = {
-        let items = [SearchModeSegments.trending.title, SearchModeSegments.search.title]
-        let view = SegmentedControl(sectionTitles: items)
+        let titles = [SearchModeSegments.trending.title, SearchModeSegments.search.title]
+        let images = [R.image.icon_cell_badge_trending()!, R.image.icon_cell_badge_search()!]
+        let selectedImages = [R.image.icon_cell_badge_trending()!, R.image.icon_cell_badge_search()!]
+        let view = SegmentedControl(sectionImages: images, sectionSelectedImages: selectedImages, titlesForSections: titles)
         view.selectedSegmentIndex = 0
         return view
     }()
@@ -194,9 +195,8 @@ class SearchViewController: TableViewController {
         let view = DropDownView(anchorView: self.tableView)
         return view
     }()
-    //仓库排序
+
     let sortRepositoryItem = BehaviorRelay(value: SortRepositoryItems.bestMatch)
-    //用户排序
     let sortUserItem = BehaviorRelay(value: SortUserItems.bestMatch)
 
     override func viewDidLoad() {
@@ -213,6 +213,8 @@ class SearchViewController: TableViewController {
 
         languageChanged.subscribe(onNext: { [weak self] () in
             self?.searchBar.placeholder = R.string.localizable.searchSearchBarPlaceholder.key.localized()
+            self?.segmentedControl.sectionTitles = [SearchTypeSegments.repositories.title,
+                                                    SearchTypeSegments.users.title]
             self?.trendingPeriodSegmentedControl.sectionTitles = [TrendingPeriodSegments.daily.title,
                                                                   TrendingPeriodSegments.weekly.title,
                                                                   TrendingPeriodSegments.montly.title]
@@ -222,7 +224,8 @@ class SearchViewController: TableViewController {
 
         trendingPeriodView.addSubview(trendingPeriodSegmentedControl)
         trendingPeriodSegmentedControl.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(self.inset)
+            make.left.right.equalToSuperview().inset(self.inset)
+            make.top.bottom.equalToSuperview()
         }
 
         searchModeView.addSubview(searchModeSegmentedControl)
@@ -236,9 +239,9 @@ class SearchViewController: TableViewController {
         stackView.addArrangedSubview(searchModeView)
 
         labelsStackView.snp.makeConstraints { (make) in
-            make.height.equalTo(50)
+            make.height.equalTo(30)
         }
-        //选择
+
         sortDropDown.selectionAction = { [weak self] (index: Int, item: String) in
             if self?.segmentedControl.selectedSegmentIndex == 0 {
                 if let item = SortRepositoryItems(rawValue: index) {
@@ -252,7 +255,7 @@ class SearchViewController: TableViewController {
         }
 
         bannerView.isHidden = true
-        //注册cell
+
         tableView.register(R.nib.trendingRepositoryCell)
         tableView.register(R.nib.trendingUserCell)
         tableView.register(R.nib.repositoryCell)
@@ -266,12 +269,21 @@ class SearchViewController: TableViewController {
             self?.sortDropDown.dimmedBackgroundColor = theme.primaryDark.withAlphaComponent(0.5)
 
             self?.segmentedControl.sectionImages = [
-                R.image.icon_cell_badge_repository()!.tint(UIColor.Material.grey900, blendMode: .normal).withRoundedCorners()!,
-                R.image.icon_cell_badge_user()!.tint(UIColor.Material.grey900, blendMode: .normal).withRoundedCorners()!
+                R.image.icon_cell_badge_repository()!.tint(theme.textGray, blendMode: .normal).withRoundedCorners()!,
+                R.image.icon_cell_badge_user()!.tint(theme.textGray, blendMode: .normal).withRoundedCorners()!
             ]
             self?.segmentedControl.sectionSelectedImages = [
                 R.image.icon_cell_badge_repository()!.tint(theme.secondary, blendMode: .normal).withRoundedCorners()!,
                 R.image.icon_cell_badge_user()!.tint(theme.secondary, blendMode: .normal).withRoundedCorners()!
+            ]
+
+            self?.searchModeSegmentedControl.sectionImages = [
+                R.image.icon_cell_badge_trending()!.tint(theme.textGray, blendMode: .normal).withRoundedCorners()!,
+                R.image.icon_cell_badge_search()!.tint(theme.textGray, blendMode: .normal).withRoundedCorners()!
+            ]
+            self?.searchModeSegmentedControl.sectionSelectedImages = [
+                R.image.icon_cell_badge_trending()!.tint(theme.secondary, blendMode: .normal).withRoundedCorners()!,
+                R.image.icon_cell_badge_search()!.tint(theme.secondary, blendMode: .normal).withRoundedCorners()!
             ]
         }).disposed(by: rx.disposeBag)
     }
@@ -289,9 +301,7 @@ class SearchViewController: TableViewController {
                                           languageTrigger: languageChanged.asObservable(),
                                           keywordTrigger: searchBar.rx.text.orEmpty.asDriver(),
                                           textDidBeginEditing: searchBar.rx.textDidBeginEditing.asDriver(),
-                                          //rightItem
                                           languagesSelection: rightBarButton.rx.tap.asObservable(),
-                                          //切换segment
                                           searchTypeSegmentSelection: searchTypeSegmentSelected,
                                           trendingPeriodSegmentSelection: trendingPerionSegmentSelected,
                                           searchModeSelection: searchModeSegmentSelected,
@@ -300,16 +310,9 @@ class SearchViewController: TableViewController {
                                           selection: tableView.rx.modelSelected(SearchSectionItem.self).asDriver())
         let output = viewModel.transform(input: input)
 
-        viewModel.loading.asObservable().bind(to: isLoading).disposed(by: rx.disposeBag)
-        viewModel.headerLoading.asObservable().bind(to: isHeaderLoading).disposed(by: rx.disposeBag)
-        viewModel.footerLoading.asObservable().bind(to: isFooterLoading).disposed(by: rx.disposeBag)
-        //错误绑定
-        viewModel.parsedError.asObservable().bind(to: error).disposed(by: rx.disposeBag)
-        //数据源
         let dataSource = RxTableViewSectionedReloadDataSource<SearchSection>(configureCell: { dataSource, tableView, indexPath, item in
             switch item {
             case .trendingRepositoriesItem(let cellViewModel):
-                //仓库cell
                 let cell = tableView.dequeueReusableCell(withIdentifier: trendingRepositoryReuseIdentifier, for: indexPath)!
                 cell.bind(to: cellViewModel)
                 return cell
@@ -322,7 +325,6 @@ class SearchViewController: TableViewController {
                 cell.bind(to: cellViewModel)
                 return cell
             case .usersItem(let cellViewModel):
-                //用户
                 let cell = tableView.dequeueReusableCell(withIdentifier: userReuseIdentifier, for: indexPath)!
                 cell.bind(to: cellViewModel)
                 return cell
@@ -357,14 +359,12 @@ class SearchViewController: TableViewController {
         output.hidesSortLabel.drive(labelsStackView.rx.isHidden).disposed(by: rx.disposeBag)
         output.hidesSortLabel.drive(totalCountLabel.rx.isHidden).disposed(by: rx.disposeBag)
         output.hidesSortLabel.drive(sortLabel.rx.isHidden).disposed(by: rx.disposeBag)
-        //点击排序
+
         sortLabel.rx.tap().subscribe(onNext: { [weak self] () in
-            //弹出框
             self?.sortDropDown.show()
         }).disposed(by: rx.disposeBag)
 
         output.sortItems.drive(onNext: { [weak self] (items) in
-            //数据源
             self?.sortDropDown.dataSource = items
             self?.sortDropDown.reloadAllComponents()
         }).disposed(by: rx.disposeBag)
@@ -374,7 +374,7 @@ class SearchViewController: TableViewController {
 
         viewModel.searchMode.asDriver().drive(onNext: { [weak self] (searchMode) in
             guard let self = self else { return }
-            self.searchModeSegmentedControl.selectedSegmentIndex = searchMode.rawValue
+            self.searchModeSegmentedControl.selectedSegmentIndex = UInt(searchMode.rawValue)
 
             switch searchMode {
             case .trending:

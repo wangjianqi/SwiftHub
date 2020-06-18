@@ -147,9 +147,6 @@ class RepositoryViewController: TableViewController {
                                               starSelection: starButton.rx.tap.asObservable())
         let output = viewModel.transform(input: input)
 
-        viewModel.loading.asObservable().bind(to: isLoading).disposed(by: rx.disposeBag)
-        viewModel.headerLoading.asObservable().bind(to: isHeaderLoading).disposed(by: rx.disposeBag)
-
         let dataSource = RxTableViewSectionedReloadDataSource<RepositorySection>(configureCell: { dataSource, tableView, indexPath, item in
             switch item {
             case .parentItem(let viewModel),
@@ -167,7 +164,8 @@ class RepositoryViewController: TableViewController {
                  .notificationsItem(let viewModel),
                  .contributorsItem(let viewModel),
                  .sourceItem(let viewModel),
-                 .starHistoryItem(let viewModel):
+                 .starHistoryItem(let viewModel),
+                 .countLinesOfCodeItem(let viewModel):
                 let cell = (tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? RepositoryDetailCell)!
                 cell.bind(to: viewModel)
                 return cell
@@ -238,6 +236,10 @@ class RepositoryViewController: TableViewController {
                 if let url = viewModel.starHistoryUrl() {
                     self?.navigator.show(segue: .webController(url), sender: self)
                 }
+            case .countLinesOfCodeItem:
+                if let viewModel = viewModel.viewModel(for: item) as? LinesCountViewModel {
+                    self?.navigator.show(segue: .linesCount(viewModel: viewModel), sender: self)
+                }
             default:
                 self?.deselectSelectedRow()
             }
@@ -303,10 +305,6 @@ class RepositoryViewController: TableViewController {
             } else {
                 self.panel.removePanelFromParent(animated: false)
             }
-        }).disposed(by: rx.disposeBag)
-
-        viewModel.error.asDriver().drive(onNext: { [weak self] (error) in
-            self?.showAlert(title: R.string.localizable.commonError.key.localized(), message: error.localizedDescription)
         }).disposed(by: rx.disposeBag)
     }
 

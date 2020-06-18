@@ -12,7 +12,5 @@ class TrendingRepositoryCell: DefaultTableViewCell {
 
     override func makeUI() {
         super.makeUI()
-        //设置圆角
-        leftImageView.cornerRadius = 25
     }
 }

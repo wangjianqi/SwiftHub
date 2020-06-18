@@ -43,7 +43,7 @@ enum HomeTabBarItem: Int {
         case .login: return R.image.icon_tabbar_login()
         }
     }
-    // 标题
+
     var title: String {
         switch self {
         case .search: return R.string.localizable.homeTabBarSearchTitle.key.localized()
@@ -76,7 +76,6 @@ enum HomeTabBarItem: Int {
         _ = themeService.rx
             .bind({ $0.text }, to: item.rx.iconColor)
             .bind({ $0.text }, to: item.rx.textColor)
-
         vc.tabBarItem = item
         return vc
     }
@@ -106,33 +105,27 @@ class HomeTabBarController: RAMAnimatedTabBarController, Navigatable {
     }
 
     func makeUI() {
-        // Configure tab bar
-        hero.isEnabled = true
-        tabBar.hero.id = "TabBarID"
-        tabBar.isTranslucent = false
-
         NotificationCenter.default
             .rx.notification(NSNotification.Name(LCLLanguageChangeNotification))
             .subscribe { [weak self] (event) in
-                // 通知
                 self?.animatedItems.forEach({ (item) in
                     item.title = HomeTabBarItem(rawValue: item.tag)?.title
                 })
-                // 设置
                 self?.setViewControllers(self?.viewControllers, animated: false)
                 self?.setSelectIndex(from: 0, to: self?.selectedIndex ?? 0)
             }.disposed(by: rx.disposeBag)
-        //绑定主题
+
         themeService.rx
             .bind({ $0.primaryDark }, to: tabBar.rx.barTintColor)
             .disposed(by: rx.disposeBag)
-        //
-        themeService.typeStream.delay(DispatchTimeInterval.milliseconds(700), scheduler: MainScheduler.instance).subscribe(onNext: { (theme) in
-            switch theme {
-            case .light(let color), .dark(let color):
-                self.changeSelectedColor(color.color, iconSelectedColor: color.color)
-            }
-        }).disposed(by: rx.disposeBag)
+
+        themeService.typeStream.delay(DispatchTimeInterval.milliseconds(100), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { (theme) in
+                switch theme {
+                case .light(let color), .dark(let color):
+                    self.changeSelectedColor(color.color, iconSelectedColor: color.color)
+                }
+            }).disposed(by: rx.disposeBag)
     }
 
     func bindViewModel() {
@@ -141,7 +134,7 @@ class HomeTabBarController: RAMAnimatedTabBarController, Navigatable {
         let input = HomeTabBarViewModel.Input(whatsNewTrigger: rx.viewDidAppear.mapToVoid())
         let output = viewModel.transform(input: input)
 
-        output.tabBarItems.drive(onNext: { [weak self] (tabBarItems) in
+        output.tabBarItems.delay(.milliseconds(50)).drive(onNext: { [weak self] (tabBarItems) in
             if let strongSelf = self {
                 let controllers = tabBarItems.map { $0.getController(with: viewModel.viewModel(for: $0), navigator: strongSelf.navigator) }
                 strongSelf.setViewControllers(controllers, animated: false)

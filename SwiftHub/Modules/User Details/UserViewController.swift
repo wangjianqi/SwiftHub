@@ -15,6 +15,7 @@ import BonMot
 private let reuseIdentifier = R.reuseIdentifier.userDetailCell.identifier
 private let repositoryReuseIdentifier = R.reuseIdentifier.repositoryCell.identifier
 private let organizationReuseIdentifier = R.reuseIdentifier.userCell.identifier
+private let contributionsReuseIdentifier = R.reuseIdentifier.contributionsCell.identifier
 
 class UserViewController: TableViewController {
 
@@ -150,6 +151,7 @@ class UserViewController: TableViewController {
         tableView.register(R.nib.userDetailCell)
         tableView.register(R.nib.repositoryCell)
         tableView.register(R.nib.userCell)
+        tableView.register(R.nib.contributionsCell)
     }
 
     override func bindViewModel() {
@@ -167,11 +169,12 @@ class UserViewController: TableViewController {
                                         followSelection: followButton.rx.tap.asObservable())
         let output = viewModel.transform(input: input)
 
-        viewModel.loading.asObservable().bind(to: isLoading).disposed(by: rx.disposeBag)
-        viewModel.headerLoading.asObservable().bind(to: isHeaderLoading).disposed(by: rx.disposeBag)
-
         let dataSource = RxTableViewSectionedReloadDataSource<UserSection>(configureCell: { dataSource, tableView, indexPath, item in
             switch item {
+            case .contributionsItem(let viewModel):
+                let cell = (tableView.dequeueReusableCell(withIdentifier: contributionsReuseIdentifier, for: indexPath) as? ContributionsCell)!
+                cell.bind(to: viewModel)
+                return cell
             case .createdItem(let viewModel),
                  .updatedItem(let viewModel),
                  .starsItem(let viewModel),
@@ -200,6 +203,12 @@ class UserViewController: TableViewController {
         output.items
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
+
+        Observable.of(output.items.mapToVoid(), orientationEvent.asObservable()).merge()
+            .asDriver(onErrorJustReturn: ()).delay(.milliseconds(100)).drive(onNext: { [weak self] (_) in
+                self?.tableView.beginUpdates()
+                self?.tableView.endUpdates()
+            }).disposed(by: rx.disposeBag)
 
         output.selectedEvent.drive(onNext: { [weak self] (item) in
             switch item {
@@ -294,10 +303,6 @@ class UserViewController: TableViewController {
 
         output.usersSelected.drive(onNext: { [weak self] (viewModel) in
             self?.navigator.show(segue: .users(viewModel: viewModel), sender: self)
-        }).disposed(by: rx.disposeBag)
-
-        viewModel.error.asDriver().drive(onNext: { [weak self] (error) in
-            self?.showAlert(title: R.string.localizable.commonError.key.localized(), message: error.localizedDescription)
         }).disposed(by: rx.disposeBag)
     }
 

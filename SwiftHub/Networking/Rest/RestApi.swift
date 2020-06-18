@@ -19,16 +19,30 @@ typealias MoyaError = Moya.MoyaError
 enum ApiError: Error {
     //服务器错误
     case serverError(response: ErrorResponse)
+
+    var title: String {
+        switch self {
+        case .serverError(let response): return response.message ?? ""
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .serverError(let response): return response.detail()
+        }
+    }
 }
 
 class RestApi: SwiftHubAPI {
 
     let githubProvider: GithubNetworking
     let trendingGithubProvider: TrendingGithubNetworking
+    let codetabsProvider: CodetabsNetworking
 
-    init(githubProvider: GithubNetworking, trendingGithubProvider: TrendingGithubNetworking) {
+    init(githubProvider: GithubNetworking, trendingGithubProvider: TrendingGithubNetworking, codetabsProvider: CodetabsNetworking) {
         self.githubProvider = githubProvider
         self.trendingGithubProvider = trendingGithubProvider
+        self.codetabsProvider = codetabsProvider
     }
 }
 
@@ -277,6 +291,11 @@ extension RestApi {
     func languages() -> Single<[Language]> {
         return trendingRequestArray(.languages, type: Language.self)
     }
+
+    // MARK: Codetabs
+    func numberOfLines(fullname: String) -> Single<[LanguageLines]> {
+        return codetabsRequestArray(.numberOfLines(fullname: fullname), type: LanguageLines.self)
+    }
 }
 
 extension RestApi {
@@ -318,6 +337,15 @@ extension RestApi {
 
     private func trendingRequestArray<T: BaseMappable>(_ target: TrendingGithubAPI, type: T.Type) -> Single<[T]> {
         return trendingGithubProvider.request(target)
+            .mapArray(T.self)
+            .observeOn(MainScheduler.instance)
+            .asSingle()
+    }
+}
+
+extension RestApi {
+    private func codetabsRequestArray<T: BaseMappable>(_ target: CodetabsApi, type: T.Type) -> Single<[T]> {
+        return codetabsProvider.request(target)
             .mapArray(T.self)
             .observeOn(MainScheduler.instance)
             .asSingle()

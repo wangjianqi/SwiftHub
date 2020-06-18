@@ -22,6 +22,9 @@
 "Common.Success" = "Success";
 "Common.Error" = "Error";
 "Common.NoResults" = "No Results";
+/* Toast */
+"Toast.ConnectionBack.Message" = "Back online";
+"Toast.ConnectionLost.Message" = "No connection";
 /* Home TabBar */
 "Home.TabBar.Events.Title" = "Events";
 "Home.TabBar.Search.Title" = "Search";
@@ -38,10 +41,15 @@
 /* Login */
 //"Login.Navigation.Title" = "Login";
 "Login.BasicSegment.Title" = "Basic";
+"Login.PersonalSegment.Title" = "Personal";
 "Login.OAuthSegment.Title" = "OAuth";
 "Login.LoginTextField.Placeholder" = "login";
 "Login.PasswordTextField.Placeholder" = "password";
 "Login.BasicLoginButton.Title" = "Login";
+"Login.PersonalTitleLabel.Text" = "Personal Access Token";
+"Login.PersonalDetailLabel.Text" = "These permissions are required\n%@";
+"Login.PersonalTokenTextField.Placeholder" = "personal access token";
+"Login.PersonalLoginButton.Title" = "Login";
 "Login.TitleLabel.Text" = "Welcome to SwiftHub";
 "Login.DetailLabel.Text" = "For API requests using Basic Authentication or OAuth, you can make up to 5000 requests per hour. \n\nFor unauthenticated requests, the rate limit allows for up to 60 requests per hour.";
 "Login.OAuthloginButton.Title" = "Sign in with Github";
@@ -78,6 +86,7 @@
 "Repository.ReadmeCell.Title" = "Readme";
 "Repository.SourceCell.Title" = "Source Code";
 "Repository.StarsHistoryCell.Title" = "Stars History";
+"Repository.CountLinesOfCodeCell.Title" = "Count Lines of Code";
 /* Issues */
 "Issues.Navigation.Title" = "Issues";
 "Issues.OpenSegment.Title" = "Open";
@@ -161,12 +170,12 @@
 "Users.ContributorsNavigation.Title" = "Contributors";
 /* Whats New */
 "WhatsNew.Title" = "Whats New";
-"WhatsNew.Item1.Title" = "WhatsNewKit";
-"WhatsNew.Item1.Subtitle" = "WhatsNewKit enables you to easily showcase your awesome new app features";
+"WhatsNew.Item1.Title" = "Count Lines of Code";
+"WhatsNew.Item1.Subtitle" = "Tool for counting lines of code from repositories";
 "WhatsNew.Item2.Title" = "Themes";
 "WhatsNew.Item2.Subtitle" = "You can apply different themes with Light and Dark modes";
 "WhatsNew.Item3.Title" = "Open Source";
-"WhatsNew.Item3.Subtitle" = "SwiftHub is fully open source\nStars are very welcomed ★";
+"WhatsNew.Item3.Subtitle" = "SwiftHub is open source\nStars are welcome ★";
 "WhatsNew.Item4.Title" = "Trending";
 "WhatsNew.Item4.Subtitle" = "See what the GitHub community is most excited about today";
 "WhatsNew.DetailButton.Title" = "View on GitHub";

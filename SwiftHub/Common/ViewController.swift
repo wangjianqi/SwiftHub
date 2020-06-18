@@ -53,6 +53,7 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
     //语言变化
     let languageChanged = BehaviorRelay<Void>(value: ())
 
+    let orientationEvent = PublishSubject<Void>()
     let motionShakeEvent = PublishSubject<Void>()
     //搜索框
     lazy var searchBar: SearchBar = {
@@ -117,10 +118,12 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
 
         // Observe device orientation change
         NotificationCenter.default
-            .rx.notification(UIDevice.orientationDidChangeNotification)
-            .subscribe { [weak self] (event) in
-                self?.orientationChanged()
-            }.disposed(by: rx.disposeBag)
+            .rx.notification(UIDevice.orientationDidChangeNotification).mapToVoid()
+            .bind(to: orientationEvent).disposed(by: rx.disposeBag)
+
+        orientationEvent.subscribe { [weak self] (event) in
+            self?.orientationChanged()
+        }.disposed(by: rx.disposeBag)
 
         // Observe application did become active notification
         NotificationCenter.default
@@ -195,10 +198,6 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
             }
         }).disposed(by: rx.disposeBag)
 
-        languageChanged.subscribe(onNext: { [weak self] () in
-            self?.emptyDataSetTitle = R.string.localizable.commonNoResults.key.localized()
-        }).disposed(by: rx.disposeBag)
-
         motionShakeEvent.subscribe(onNext: { () in
             let theme = themeService.type.toggled()
             themeService.switch(theme)
@@ -214,7 +213,16 @@ class ViewController: UIViewController, Navigatable, NVActivityIndicatorViewable
     }
 
     func bindViewModel() {
+        viewModel?.loading.asObservable().bind(to: isLoading).disposed(by: rx.disposeBag)
+        viewModel?.parsedError.asObservable().bind(to: error).disposed(by: rx.disposeBag)
 
+        languageChanged.subscribe(onNext: { [weak self] () in
+            self?.emptyDataSetTitle = R.string.localizable.commonNoResults.key.localized()
+        }).disposed(by: rx.disposeBag)
+
+        isLoading.subscribe(onNext: { isLoading in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = isLoading
+        }).disposed(by: rx.disposeBag)
     }
 
     func updateUI() {

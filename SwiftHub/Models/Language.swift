@@ -86,3 +86,25 @@ struct RepoLanguage {
         color = graph?.node.color
     }
 }
+
+struct LanguageLines: Mappable {
+
+    var language: String?
+    var files: String?
+    var lines: String?
+    var blanks: String?
+    var comments: String?
+    var linesOfCode: String?
+
+    init?(map: Map) {}
+    init() {}
+
+    mutating func mapping(map: Map) {
+        language <- map["language"]
+        files <- map["files"]
+        lines <- map["lines"]
+        blanks <- map["blanks"]
+        comments <- map["comments"]
+        linesOfCode <- map["linesOfCode"]
+    }
+}
